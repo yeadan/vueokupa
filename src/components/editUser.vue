@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-<modal name="edit-user-modal" @before-open="beforeOpen" transition="pop-out" height="auto" :scrollable="true" >
+<modal class="md" name="edit-user-modal" @before-open="beforeOpen" transition="pop-out" height="auto" :scrollable="true" >
 <div class="card" style="padding:5%">
   <div class="card-body">
     <form >
@@ -84,37 +84,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-
-label {
-    display: inline-block;
-    width: 100px;
-}
-input {
-    padding:10px;
-    outline: none;
-    transition: 0.5s all;
-    padding: 4px 8px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-}
-button {
-    border-radius: 4px;
-    padding: 10px;
-    margin-right: 10px;
-    transition: 0.1s all;
-    margin-top: 8px;
-}
-.button-set {
-    margin-bottom:8px;
-}
-.pop-out-enter-active,
-.pop-out-leave-active {
-    transition: all 0.5s;
-}
-.pop-out-enter,
-.pop-out-leave-active {
-    opacity: 0;
-    transform: translateY(24px);
-}
-</style>

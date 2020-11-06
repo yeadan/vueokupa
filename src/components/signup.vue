@@ -86,15 +86,15 @@ import '../interceptor'
 </script>
 
 <style scoped>
-    #signup {
-        width: 500px;
-        border: 1px solid #CCCCCC;
-        background-color: #FFFFFF;
-        margin: auto;
-        margin-top: 50px;
-        padding: 20px;
-        transition: all 0.2s;
-    }
+#signup {
+    width: 500px;
+    border: 1px solid #CCCCCC;
+    background-color: #FFFFFF;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+    transition: all 0.2s;
+}
 
 h6 {
     margin: 10px 0 0;

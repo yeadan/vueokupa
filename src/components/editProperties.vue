@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-<modal name="edit-property-modal" @before-open="beforeOpen" transition="pop-out" height="auto" :scrollable="true" >
+<modal class="md" name="edit-property-modal" @before-open="beforeOpen" transition="pop-out" height="auto" :scrollable="true" >
 <div class="card" style="padding:5%">
   <div class="card-body">
     <form >
@@ -26,8 +26,8 @@
         </div>
     </form>
         <div class="mx-auto col-6">
-            <button @click="clickOK()"  class="btn btn-success" >Guardar</button>
-            <button @click="clickClose()"  class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button @click="clickOK({type:input.type,description:input.description,owner_id:selectedOwner,okupa_id:selectedOkupa},'put','properties/'+input.id,false)"  class="btn btn-success" >Guardar</button>
+            <button @click="clickClose('edit-property-modal')"  class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
   </div>
 </div>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import {modalMixins} from '@/mixins.js'
 import '../interceptor'
 import axios from 'axios'
 export default {
@@ -52,6 +53,7 @@ export default {
                 listaokupas:[]
             }
         },
+        mixins:[modalMixins],
   methods: {
       beforeOpen(event) {
           this.input.id = event.params.usedProperty.property_id
@@ -79,60 +81,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
-    },
-      clickOK() {
-          if(this.input.type != "" && this.selectedOkupa > 0 && this.selectedOwner > 0 &&this.input.description != "") {
-              let data = JSON.stringify({type:this.input.type,description:this.input.description,
-              owner_id:this.selectedOwner,okupa_id:this.selectedOkupa})
-                   const axios = require ('axios')
-                    axios({
-                        method: 'put',
-                        url:'http://localhost:4444/properties/'+this.input.id,
-                        data:data,
-                    }).then(function (response) {
-                        // Respuesta
-                        console.log(response.data)
-                        location.reload(false)
-                        console.log("Guardado")
-                    }).catch(function (error) {     
-                        console.log("ERROR: "+error)
-                    })        
-          }
-          
-      },
-      clickClose() {
-          this.$modal.hide('edit-property-modal')
-      }
+    }
   }
 }
 </script>
-<style scoped>
-
-input {
-    padding:10px;
-    outline: none;
-    transition: 0.5s all;
-    padding: 4px 8px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-}
-button {
-    border-radius: 4px;
-    padding: 10px;
-    margin-right: 10px;
-    transition: 0.1s all;
-    margin-top: 8px;
-}
-.button-set {
-    margin-bottom:8px;
-}
-.pop-out-enter-active,
-.pop-out-leave-active {
-    transition: all 0.5s;
-}
-.pop-out-enter,
-.pop-out-leave-active {
-    opacity: 0;
-    transform: translateY(24px);
-}
-</style>

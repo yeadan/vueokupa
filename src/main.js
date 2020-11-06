@@ -4,9 +4,12 @@ import App from './App.vue'
 import { routes } from './routes.js'
 import VModal from 'vue-js-modal'
 
+import './estilos.css'
 
 Vue.use(VModal)
 Vue.use(VueRouter)
+
+
 
 export const router = new VueRouter({
   routes,

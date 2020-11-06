@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import adminAddOkupa from './adminAddOkupa.vue'
+import addOkupaUser from './addOkupaUser.vue'
 import addOkupa from './addOkupa.vue'
 import editOkupa from './editOkupa.vue'
 import '../interceptor'
@@ -93,7 +93,7 @@ export default {
   components: {
   AddOkupa: addOkupa,
   EditOkupa: editOkupa,
-  AdminAddOkupa: adminAddOkupa
+  AdminAddOkupa: addOkupaUser
   },
   mounted () {
     this.role = localStorage.getItem("role")
@@ -197,7 +197,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>
