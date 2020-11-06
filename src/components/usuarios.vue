@@ -23,8 +23,8 @@
               <div class="card-title">
                 <h5>Usuarios</h5>
               </div>
-              <div v-if="Object.keys(miembrosdata).length > 0">
-                <div class="row" v-for="(miembro, index) in miembrosdata" :key="index">
+              <div v-if="Object.keys(datos.users).length > 0">
+                <div class="row" v-for="(miembro, index) in datos.users" :key="index">
                   <div class="col-10">
                     <p class="card-text "><small>{{ miembro.full_name }} </small></p>
                   </div>
@@ -41,6 +41,7 @@
   </div>
 </template>
 <script>
+import {dataMixins} from '../mixins.js'
 import axios from 'axios'
 import editUser from './editUser.vue'
 import '../interceptor'
@@ -48,16 +49,16 @@ export default {
   data () {
     return {
       userdata: "",
-      miembrosdata:[],
       role:"",
     }
   },
+  mixins: [dataMixins],
   components: {
     EditUser: editUser
   },
   mounted () { 
     this.role = localStorage.getItem("role")
-    if (this.role == "admin") { this.loadusers() }
+    if (this.role == "admin") { this.load('users') }
     this.user_id = localStorage.getItem("user_id")
 
     let user = localStorage.getItem("user_id")
@@ -73,16 +74,6 @@ export default {
   methods: {
     editUser(data) {
       this.$modal.show('edit-user-modal', {usedUser: data})
-    },
-    loadusers() {
-      const url = 'http://localhost:4444/users'
-      axios.get(url)
-      .then(response => {
-        this.miembrosdata = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
     }
   }
 }

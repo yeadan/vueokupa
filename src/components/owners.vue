@@ -13,8 +13,8 @@
           <div v-else class="card-title">
             <h5>Propietarios</h5>
           </div>
-          <div v-if="Object.keys(listowners).length > 0">
-          <ul class="list-group" v-for="(owner, index) in listowners" :key="index">
+          <div v-if="Object.keys(datos.owners).length > 0">
+          <ul class="list-group" v-for="(owner, index) in datos.owners" :key="index">
             <li class=" list-group-item list-group-item-action" @click="getowner(owner.owner_id)" ><small><strong>{{owner.owner_id}} : </strong>{{ owner.name }}</small></li>
           </ul>
           </div>
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import {dataMixins} from '../mixins.js'
 import addOwner from './addOwner.vue'
 import editOwner from './editOwner.vue'
 import '../interceptor'
@@ -63,10 +64,10 @@ export default {
     return {
       role: '',
       ownersdata: "",
-      listowners:[],
       activeOwner:0,
     }
   },
+  mixins: [dataMixins],
   components: {
   AddOwner: addOwner,
   EditOwner: editOwner,
@@ -74,19 +75,9 @@ export default {
   mounted () {
     this.role = localStorage.getItem("role")
     this.user_id = localStorage.getItem("user_id")
-    this.loadowners()
+    this.load('owners')
   },
   methods: {
-    loadowners() {
-      const url = 'http://localhost:4444/owners'
-      axios.get(url)
-      .then(response => {
-        this.listowners = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
     addOwner() {
       this.$modal.show('add-owner-modal')
     },

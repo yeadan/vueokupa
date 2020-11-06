@@ -6,15 +6,15 @@
     <form >
         <div class="form-group">
             <label for="selectOwn"><strong>Propietario </strong></label>
-            <select class="col-6 mx-4" id="selectOwn" v-if="Object.keys(listaowners).length > 0" v-model="selectedOwner">
+            <select class="col-6 mx-4" id="selectOwn" v-if="Object.keys(datos.owners).length > 0" v-model="selectedOwner">
                 <option v-bind:value="0" disabled >Seleccione un propietario</option>
-                <option v-for="(owner, index) in listaowners" :key="index" v-bind:value="owner.owner_id" v-text="owner.name" ></option>
+                <option v-for="(owner, index) in datos.owners" :key="index" v-bind:value="owner.owner_id" v-text="owner.name" ></option>
             </select>
             <div class="col-3"/>
             <label for="selectAso" ><strong>Asociación </strong></label>
-            <select id="selectAso" class="mx-4 col-6" v-if="Object.keys(listaokupas).length > 0" v-model="selectedOkupa">
+            <select id="selectAso" class="mx-4 col-6" v-if="Object.keys(datos.okupas).length > 0" v-model="selectedOkupa">
                 <option v-bind:value="0" disabled >Seleccione una asociación</option>
-                <option v-for="(okupa, index) in listaokupas" :key="index" v-bind:value="okupa.okupa_id" v-text="okupa.name" ></option>
+                <option v-for="(okupa, index) in datos.okupas" :key="index" v-bind:value="okupa.okupa_id" v-text="okupa.name" ></option>
             </select>
             <div class="col-3"/>
             <label for="input-type"><strong>Tipo </strong></label>
@@ -36,9 +36,9 @@
 </template>
 
 <script>
-import {modalMixins} from '@/mixins.js'
+import {modalMixins} from '../mixins.js'
+import {dataMixins} from '../mixins.js'
 import '../interceptor'
-import axios from 'axios'
 export default {
   data() {
             return {
@@ -49,39 +49,17 @@ export default {
                     type: "",
                     description: ""
                 },
-                listaowners:[],
-                listaokupas:[]
             }
         },
-        mixins:[modalMixins],
+        mixins:[modalMixins,dataMixins],
   methods: {
       beforeOpen(event) {
           this.input.id = event.params.usedProperty.property_id
           this.input.type = event.params.usedProperty.type
           this.input.description = event.params.usedProperty.description
-          this.loadowners()
-          this.loadokupas()
-      },
-      loadowners() {
-      const url = 'http://localhost:4444/owners'
-      axios.get(url)
-      .then(response => {
-        this.listaowners = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
-    loadokupas() {
-      const url = 'http://localhost:4444/okupas'
-      axios.get(url)
-      .then(response => {
-        this.listaokupas = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    }
+          this.load('owners')
+          this.load('okupas')
+      }
   }
 }
 </script>

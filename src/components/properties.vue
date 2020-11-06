@@ -11,8 +11,8 @@
         <div v-else class="card-title">
           <h5>Propiedades</h5>
         </div>
-        <div v-if="Object.keys(listproperties).length > 0">
-          <ul class="list-group" v-for="(okupa, index) in listproperties" :key="index">
+        <div v-if="Object.keys(datos.properties).length > 0">
+          <ul class="list-group" v-for="(okupa, index) in datos.properties" :key="index">
             <li class=" list-group-item list-group-item-action" @click="getproperty(okupa.property_id)" ><small><strong>{{okupa.property_id}} : </strong>{{ okupa.description }}</small></li>
           </ul>
         </div>
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import {dataMixins} from '../mixins.js'
 import adminEditProperty from './editProperties.vue'
 import '../interceptor'
 import axios from 'axios'
@@ -89,21 +90,21 @@ export default {
     return {
       role: '',
       propertydata: '',
-      listproperties: [],
-      miembrosdata:[],
       activeProperty:0,
       adminUser:0,
       theOwner:"",
       theOkupa:"",
     }
-  },components: {
+  },
+  mixins: [dataMixins],
+  components: {
     AdminEditProperty: adminEditProperty
   },
 
   mounted () {
     this.role = localStorage.getItem("role")
     this.user_id = localStorage.getItem("user_id")
-    this.loadproperty()
+    this.load('properties')
     
   },
   methods: {
@@ -113,16 +114,6 @@ export default {
     },
     AdminEditProperty() {
       this.$modal.show('edit-property-modal', {usedProperty: this.propertydata})
-    },
-    loadproperty() {
-      const url = 'http://localhost:4444/properties'
-      axios.get(url)
-      .then(response => {
-        this.listproperties = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
     },
     getproperty(index){
       this.activeProperty = index

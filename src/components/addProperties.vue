@@ -8,14 +8,14 @@
           <td><label class="" for="select_propietario">Propietario  </label></td>
           <td><select id="select_propietario"  v-model="resultado.owner_id" >
             <option value="0" disabled selected>Escoge uno...</option>
-            <option  v-for="(owner, index) in listowners" :key="index" :value="owner.owner_id" >{{owner.name}}</option>
+            <option  v-for="(owner, index) in datos.owners" :key="index" :value="owner.owner_id" >{{owner.name}}</option>
           </select></td>
         </tr>
         <tr>
           <td><label class="" for="select_okupa">Asociación  </label></td>
           <td><select id="select_okupa"  v-model="resultado.okupa_id" >
             <option value="0" disabled selected>Escoge una...</option>
-            <option  v-for="(okupa, index) in listokupas" :key="index" :value="okupa.okupa_id" >{{okupa.name}}</option>
+            <option  v-for="(okupa, index) in datos.okupas" :key="index" :value="okupa.okupa_id" >{{okupa.name}}</option>
           </select></td>
         </tr>
         <tr>
@@ -136,6 +136,7 @@
 
 <script>
 
+import {dataMixins} from '../mixins.js'
 import axios from 'axios'
 export default {
   data () {
@@ -150,37 +151,16 @@ export default {
       nucleos: [],
       codigosPostal: [],
       calles: [],
-      listokupas: [],
-      listowners: [],
       instance:'' // Nueva instance de axios sin interceptors
     }
   },
+  mixins: [dataMixins],
   mounted () {
     this.get_comunidades()
-    this.loadokupa()
-    this.loadowners()
+    this.load('okupas')
+    this.load('owners')
   },
   methods: {
-    loadowners() {
-      const url = 'http://localhost:4444/owners'
-      axios.get(url)
-      .then(response => {
-        this.listowners = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
-    loadokupa() {
-      const url = 'http://localhost:4444/okupas'
-      axios.get(url)
-      .then(response => {
-        this.listokupas = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
     get_comunidades() {
        this.instance = axios.create();
       this.instance.interceptors.request.use(function (config) {
@@ -328,19 +308,18 @@ export default {
       let thisDate = new Date().getTime()
       this.resultado.created = new Date(thisDate).toISOString()
       
-                    axios({
-                        method: 'post',
-                        url:'http://localhost:4444/properties',
-                        data:this.resultado,
-                    }).then(function (response) {
-                        // Respuesta
-                        console.log(response.data)
-                        location.reload(false)
-                        alert("Creado")
-                    }).catch(function (error) {     
-                        console.log("ERROR: "+error)
-                    })        
-      
+      axios({
+          method: 'post',
+          url:'http://localhost:4444/properties',
+          data:this.resultado,
+      }).then(function (response) {
+          // Respuesta
+          console.log(response.data)
+          location.reload(false)
+          alert("Creado")
+      }).catch(function (error) {     
+          console.log("ERROR: "+error)
+      })        
     }
   }
 }

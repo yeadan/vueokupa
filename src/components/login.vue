@@ -35,7 +35,6 @@ import '../interceptor'
                 }
             else {
                 console.log(localStorage.getItem('user_id'))
-
                 this.$router.push('/')
             }
         },

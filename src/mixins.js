@@ -1,5 +1,30 @@
 //import $ from 'jquery'
+import axios from 'axios'
 
+export const dataMixins = {
+    data() {
+        return {
+            datos: {
+                okupas:[],
+                users:[],
+                owners:[],
+                properties:[]
+            }
+        }
+    },
+    methods: {
+        load(target) {
+            const url = 'http://localhost:4444/'+target
+            axios.get(url)
+            .then(response => {
+              this.datos[target] = response.data
+            })
+            .catch(error => {
+              console.log(error)
+            })
+          },
+    }
+}
 export const modalMixins = {
     methods: {
         clickClose(target) {

@@ -4,9 +4,9 @@
 <div class="card" style="padding:5%">
   <div class="card-body">
     <label for="selectUsr"><strong>Usuario </strong></label>
-    <select id="selectUsr" class="col6 mx-4" v-if="Object.keys(listausers).length > 0" v-model="selected">
+    <select id="selectUsr" class="col6 mx-4" v-if="Object.keys(datos.users).length > 0" v-model="selected">
         <option v-bind:value="0" disabled >Seleccione un usuario</option>
-            <option v-for="(user, index) in listausers" :key="index" v-bind:value="user.user_id" v-text="user.full_name" ></option>
+            <option v-for="(user, index) in datos.users" :key="index" v-bind:value="user.user_id" v-text="user.full_name" ></option>
     </select>
     <div class="col-6 mx-auto">
         <button @click="clickOK()"  class="btn btn-success" >Añadir</button>
@@ -18,32 +18,21 @@
 </div>
 </template>
 <script>
-
+import {dataMixins} from '../mixins.js'
 import '../interceptor'
-import axios from 'axios'
 export default {
-  name: 'DemoLoginModal',
   data() {
-            return {
-                selected:0,
-                listausers:[]
-            }
-        },
+      return {
+          selected:0,
+      }
+  },
+  mixins:[dataMixins],
   methods: {
     beforeOpen(event) {
         this.activeOkupa =event.params.asoOkupa
-        this.loadusers()
+        this.load('users')
     },
-    loadusers() {
-      const url = 'http://localhost:4444/users'
-      axios.get(url)
-      .then(response => {
-        this.listausers = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
+
     clickOK() {
       if (this.selected > 0) {
           this.$emit('addNewUser',this.selected)

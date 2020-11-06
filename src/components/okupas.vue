@@ -12,8 +12,8 @@
         <div v-else class="card-title">
           <h5>Asociaciones</h5>
         </div>
-        <div v-if="Object.keys(listokupas).length > 0">
-          <ul class="list-group" v-for="(okupa, index) in listokupas" :key="index">
+        <div v-if="Object.keys(datos.okupas).length > 0">
+          <ul class="list-group" v-for="(okupa, index) in datos.okupas" :key="index">
             <li class=" list-group-item list-group-item-action" @click="getokupa(okupa.okupa_id),getmembers(okupa.okupa_id)" ><small><strong>{{okupa.okupa_id}} : </strong>{{ okupa.name }}</small></li>
           </ul>
         </div>
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import {dataMixins} from '../mixins.js'
 import addOkupaUser from './addOkupaUser.vue'
 import addOkupa from './addOkupa.vue'
 import editOkupa from './editOkupa.vue'
@@ -84,12 +85,13 @@ export default {
     return {
       role: '',
       okupasdata: '',
-      listokupas: [],
+     // listokupas: [],
       miembrosdata:[],
       activeOkupa:0,
       adminUser:0,
     }
   },
+  mixins: [dataMixins],
   components: {
   AddOkupa: addOkupa,
   EditOkupa: editOkupa,
@@ -98,7 +100,7 @@ export default {
   mounted () {
     this.role = localStorage.getItem("role")
     this.user_id = localStorage.getItem("user_id")
-    this.loadokupa()
+    this.load('okupas')
     
   },
   methods: {
@@ -106,16 +108,7 @@ export default {
       this.adminUser = data
       this.addMember()
     },
-    loadokupa() {
-      const url = 'http://localhost:4444/okupas'
-      axios.get(url)
-      .then(response => {
-        this.listokupas = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    },
+    
     addOkupa() {
       this.$modal.show('add-okupa-modal')
     },
