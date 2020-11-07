@@ -19,6 +19,7 @@ export default {
     Encabezado: encabezado
   },
   mounted() {
+  
     //Añadiremos Font Awesome con mi clave (Sergio Bosch)
     let myScript = document.createElement('script')
     myScript.setAttribute('src',"https://kit.fontawesome.com/e704792412.js")

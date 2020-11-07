@@ -73,8 +73,8 @@ export default {
   EditOwner: editOwner,
   },
   mounted () {
-    this.role = localStorage.getItem("role")
-    this.user_id = localStorage.getItem("user_id")
+    this.role = this.$store.getters.getRole
+    this.user_id = this.$store.getters.getUserID
     this.load('owners')
   },
   methods: {

@@ -57,11 +57,11 @@ export default {
     EditUser: editUser
   },
   mounted () { 
-    this.role = localStorage.getItem("role")
+    this.role = this.$store.getters.getRole
     if (this.role == "admin") { this.load('users') }
-    this.user_id = localStorage.getItem("user_id")
+    this.user_id = this.$store.getters.getUserID
 
-    let user = localStorage.getItem("user_id")
+    let user = this.$store.getters.getUserID
     const url = 'http://localhost:4444/users/'+user
     axios.get(url)
     .then(response => {

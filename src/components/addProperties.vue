@@ -143,7 +143,7 @@ export default {
     return {
       selectThis: {com:'',pro:'',mun:'',pob:'',nuc:'',CPs:'',Cal:''},
       key: '2fbda50bcbdc4f0d5ff1b7f08546174f90e60e0de4cc83d2f4cab5ea2708a989',
-      resultado:{owner_id:0,okupa_id:0,user_id:parseInt(localStorage.getItem('user_id')),type:'',description:'',created:0,comunidad:'',provincia:'',municipio:'', poblacion:'', nucleo:'', codigo_postal:'',calle:'',numero:0,piso:0,puerta:''},
+      resultado:{owner_id:0,okupa_id:0,user_id:parseInt(this.$store.getters.getUserID),type:'',description:'',created:0,comunidad:'',provincia:'',municipio:'', poblacion:'', nucleo:'', codigo_postal:'',calle:'',numero:0,piso:0,puerta:''},
       comunidades: [],
       provincias: [],
       municipios: [],

@@ -7,7 +7,6 @@ axios.interceptors.response.use((response) => {
 },  (error) => {
     if (error.response.status == 401) {
         console.log('unauthorized, logging out ...')
-        localStorage.clear()
         router.push('/login')
     }
     return Promise.reject(error);

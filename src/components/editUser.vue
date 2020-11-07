@@ -42,7 +42,7 @@ export default {
             }
         },
     mounted() {
-        this.role = localStorage.getItem("role")
+        this.role = this.$store.getters.getRole
     },
     methods: {
       beforeOpen(event) {

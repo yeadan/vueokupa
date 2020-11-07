@@ -36,8 +36,7 @@
 </template>
 
 <script>
-import {modalMixins} from '../mixins.js'
-import {dataMixins} from '../mixins.js'
+import {modalMixins,dataMixins} from '../mixins.js'
 import '../interceptor'
 export default {
   data() {

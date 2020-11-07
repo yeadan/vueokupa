@@ -1,3 +1,4 @@
+import store from '@/store'
 import InicioComponent from './components/inicio.vue'
 import NotFound from './components/notfound.vue'
 import LoginComponent from './components/login.vue'
@@ -23,14 +24,15 @@ export const routes = [
 
 // Función para proteger páginas y que únicamente sean accesibles con login
 function protect (to, from, next) {
-    if (localStorage.user_id) 
+    if (store.getters.getUserID != '') 
         next()
     else
         next('/login')
 }
 //Solo accesibles por un admin
 function protectAdmin (to, from, next) {
-    if (localStorage.user_id && localStorage.role =="admin")
+    console.log(store.getters.getRole)
+    if (store.getters.getUserID != '' && store.getters.getRole =="admin")
         next()
     else
         next('/login')

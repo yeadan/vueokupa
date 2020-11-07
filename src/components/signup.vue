@@ -32,13 +32,10 @@ import '../interceptor'
             }
         },
         mounted() {
-            if (localStorage.getItem('user_id') === null){
-                console.log(localStorage.getItem('user_id'))
+            if (this.$store.getters.getUserID == ""){
                 console.log("No user")
                 }
             else {
-                console.log(localStorage.getItem('user_id'))
-
                 this.$router.push('/')
             }
         },

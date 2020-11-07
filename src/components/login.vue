@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import '../interceptor'
+import { ACTION_CHANGE_ROLE, ACTION_CHANGE_TOKEN, ACTION_CHANGE_USER_ID } from '@/store/app.store'
+import '@/interceptor'
     export default {
         name: 'Login',
         data() {
@@ -29,12 +30,10 @@ import '../interceptor'
             }
         },
         mounted() {
-            if (localStorage.getItem('user_id') === null){
-                console.log(localStorage.getItem('user_id'))
+            if (this.$store.getters.getUserID == ''){
                 console.log("No user")
                 }
             else {
-                console.log(localStorage.getItem('user_id'))
                 this.$router.push('/')
             }
         },
@@ -52,9 +51,7 @@ import '../interceptor'
                 if(this.input.username != "" && this.input.password != "") {
                     let data = JSON.stringify({username:this.input.username,
                     password:this.input.password})
-                    
                     const axios = require ('axios')
-
                     axios({
                         method: 'post',
                         url:'http://localhost:4444/users/login',
@@ -63,9 +60,10 @@ import '../interceptor'
                         // Respuesta
                         console.log(response.data)
                         // Almacenamos user, role y token
-                        localStorage.setItem('access-token',response.data.token)
-                        localStorage.setItem('user_id',response.data.user_id)
-                        localStorage.setItem('role',response.data.role)
+                        self.$store.dispatch(ACTION_CHANGE_ROLE,response.data.role)
+                        self.$store.dispatch(ACTION_CHANGE_TOKEN,response.data.token)
+                        self.$store.dispatch(ACTION_CHANGE_USER_ID,response.data.user_id)
+                        //localStorage.setItem('access-token',response.data.token)
                         self.$router.push('/')
                     }).catch(function (error) {     
                         console.log("ERROR: "+error)

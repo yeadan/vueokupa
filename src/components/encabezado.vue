@@ -30,9 +30,8 @@
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'jquery/src/jquery.js'
-import 'bootstrap/dist/js/bootstrap.js'
+import { ACTION_LOGOUT } from '@/store/app.store'
+
 export default {
   data() {
             return {
@@ -40,14 +39,17 @@ export default {
             }
   },
   mounted(){
-    this.role = localStorage.getItem("role")
+    this.role = this.$store.getters.getRole
   },
   methods: {
     logout() {
-      localStorage.clear()
-      console.log(this.$router.resolve(location).href)
-      if (this.$router.resolve(location).href!='/#app/login') {
-        this.$router.push('/login')      }
+      var self = this
+      this.$store.dispatch(ACTION_LOGOUT)
+      .then(() => {
+          if (self.$router.resolve(location).href !='/#app/login') {
+            self.$router.push('/login')      
+          }
+      })
     }
   }
 }
