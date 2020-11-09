@@ -33,9 +33,7 @@ import '@/interceptor'
             if (this.$store.getters.getUserID == ''){
                 console.log("No user")
                 }
-            else {
-                this.$router.push('/')
-            }
+            else this.$router.push('/')
         },
         methods: {
             testToast(message) {

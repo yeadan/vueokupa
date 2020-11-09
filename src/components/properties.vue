@@ -1,33 +1,59 @@
 <template >
-<div id="okupas" class="container">
+<div id="okupas" >
   <h2 align="center">(Privado) Propiedades </h2>
   <div class="row">
-    <div class="col-4 card">
+    <div class="col-6 card">
       <div class="card-body" >
         <div v-if="role=='admin'" class="card-title row">
-          <h5 class="col-10">Propiedades</h5>
-          <router-link to="/addproperties"><i style="line-height:inherit;color:green" class="col-2 fa fa-plus"/></router-link>
+          <h3 class="col-10"> Propiedades</h3>
+          <div class="col-2">
+            <router-link to="/addproperties"><i style="line-height:inherit;color:green" title="Añadir" class="col-2 fa fa-plus"/></router-link> 
+          </div>
+
         </div>
         <div v-else class="card-title">
-          <h5>Propiedades</h5>
+          <h3>Propiedades</h3>
         </div>
-        <div v-if="Object.keys(datos.properties).length > 0">
-          <ul class="list-group" v-for="(okupa, index) in datos.properties" :key="index">
-            <li class=" list-group-item list-group-item-action" @click="getproperty(okupa.property_id)" ><small><strong>{{okupa.property_id}} : </strong>{{ okupa.description }}</small></li>
-          </ul>
+        <div class="">
+        <form class="float-right">
+            <input type="text" id="aso" placeholder="Filtrar..." class="filter form-control inputsm" >
+        </form>
+        </div>
+        <div  v-if="(Object.keys(datos.properties).length > 0 && Object.keys(datos.owners).length > 0 && Object.keys(datos.okupas).length > 0)">
+          <table id="listProperty" class="table table-striped  ">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Okupa</th>
+                <th>Owner</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr v-for="(okupa, index) in datos.properties" :key="index" @click="getproperty(okupa.property_id)" >
+                <td>{{okupa.property_id}}</td>
+                <td>{{datos.okupas[okupa.okupa_id].name}}</td>
+                <td>{{datos.owners[okupa.owner_id].name}} </td>
+                <td>{{ okupa.type }}</td>
+                <td>{{ okupa.description }}</td>
+              </tr>
+            </tbody>
+                          
+            </table>
         </div>
         <div v-else class="alert alert-danger" role="alert">
            No hay propiedades registradas
         </div>
       </div>
     </div>
-  <div class="col-4">
+  <div class="col-3">
     <div class="card">    
       <div class="card-body">
         <div v-if="role=='admin' && propertydata != ''" class="row card-title">
           <h5 class="col-9 ">Propiedad</h5>
-          <i style="line-height:inherit" @click="AdminEditProperty" class="col-1 fas fa-edit"></i>
-          <i style="line-height:inherit" @click="deleteProperty" class="col-1 fas fa-trash-alt"></i>
+          <i style="line-height:inherit" title="Editar" @click="AdminEditProperty" class="col-1 fas fa-edit"></i>
+          <i style="line-height:inherit" title="Borrar" @click="deleteProperty" class="col-1 fas fa-trash-alt"></i>
           <AdminEditProperty @editProperty="editPropertyFunc"></AdminEditProperty>
         </div>
         <div v-else class="card-title">
@@ -48,7 +74,7 @@
       </div>
     </div>
   </div>
-  <div class="col-4">
+  <div class="col-3">
     <div class="card">    
       <div class="card-body">
         <div v-if="role=='admin' && propertydata != ''" class="row card-title">
@@ -85,6 +111,7 @@ import {dataMixins} from '../mixins.js'
 import adminEditProperty from './editProperties.vue'
 import '../interceptor'
 import axios from 'axios'
+import $ from 'jquery'
 export default {
   data () {
     return {
@@ -93,7 +120,7 @@ export default {
       activeProperty:0,
       adminUser:0,
       theOwner:"",
-      theOkupa:"",
+      theOkupa:""
     }
   },
   mixins: [dataMixins],
@@ -104,7 +131,15 @@ export default {
   mounted () {
     this.role = this.$store.getters.getRole
     this.user_id = this.$store.getters.getUserID
-    this.load('properties')
+    this.loadProperties()
+
+    //Para filtrar los datos, con jquery
+    $("#aso").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#listProperty tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    })
     
   },
   methods: {
@@ -123,7 +158,6 @@ export default {
         this.propertydata = response.data
         this.getOwner(this.propertydata.owner_id)
         this.getOkupa(this.propertydata.okupa_id)
-
       })
       .catch(error => {
         console.log(error)
@@ -171,3 +205,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+
+tbody tr:hover {  
+  background-color: #dfedc4;  
+  color: #666666;  
+}
+</style>

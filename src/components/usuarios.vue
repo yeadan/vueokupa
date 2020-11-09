@@ -9,7 +9,7 @@
               <div class="card-title row">
                 <p class="col 2"></p>
                 <p class="h5 col-8">Usuario ID: {{userdata.user_id}}</p>
-                <i v-if="Object.keys(userdata).length > 0" @click="editUser(userdata)" style="line-height:inherit" class="col-2 fas fa-edit"></i>
+                <i v-if="Object.keys(userdata).length > 0" @click="editUser(userdata)" title="Editar" style="line-height:inherit" class="col-2 fas fa-edit"></i>
               </div>
               <div class="card-text" v-if="Object.keys(userdata).length > 0">
                 <p align="center" ><small><strong>Nombre completo: </strong>{{ userdata.full_name }}</small></p>
@@ -29,7 +29,7 @@
                     <p class="card-text "><small>{{ miembro.full_name }} </small></p>
                   </div>
                   <div class="col-2">
-                    <i @click="editUser(miembro)" style="line-height:inherit" class="col-2 fas fa-edit"></i>
+                    <i @click="editUser(miembro)" title="Editar" style="line-height:inherit" class="col-2 fas fa-edit"></i>
                   </div>
                 </div>
               </div>

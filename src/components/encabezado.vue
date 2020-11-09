@@ -10,7 +10,7 @@
           <li><router-link to="/okupas">Associations</router-link></li>
           <li><router-link to="/users">Users</router-link></li>
           <li><router-link to="/owners">Owners</router-link></li>
-          <li v-if="role=='admin'" class="nav-item dropdown">
+          <li v-if="this.$store.getters.getRole=='admin'" class="nav-item dropdown">
             <router-link to="/properties" >Properties</router-link>
             <div class="dropdown-menu bg-dark">
               <router-link class="dropdown-item" to="/properties">List properties</router-link>
@@ -31,21 +31,13 @@
 
 <script>
 import { ACTION_LOGOUT } from '@/store/app.store'
-
 export default {
-  data() {
-            return {
-                role: ""
-            }
-  },
-  mounted(){
-    this.role = this.$store.getters.getRole
-  },
   methods: {
     logout() {
       var self = this
       this.$store.dispatch(ACTION_LOGOUT)
       .then(() => {
+        // Vuelve al login
           if (self.$router.resolve(location).href !='/#app/login') {
             self.$router.push('/login')      
           }

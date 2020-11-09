@@ -6,7 +6,7 @@
       <div class="card-body" >
         <div v-if="role=='admin'" class="card-title row">
           <h5 class="col-10">Asociaciones</h5>
-          <i  @click="addOkupa" style="line-height:inherit;color:green" class="col-2 fa fa-plus"></i>
+          <i @click="addOkupa" title="Añadir" style="line-height:inherit;color:green" class="col-2 fa fa-plus"></i>
            <AddOkupa></AddOkupa>
         </div>
         <div v-else class="card-title">
@@ -27,8 +27,8 @@
       <div class="card-body">
         <div v-if="role=='admin' && okupasdata != ''" class="row card-title">
           <h5 class="col-9 ">Asociación</h5>
-          <i @click="editOkupa" style="line-height:inherit" class="col-1 fas fa-edit"></i>
-          <i @click="deleteOkupa" style="line-height:inherit" class="col-1 fas fa-trash-alt"></i>
+          <i @click="editOkupa" title="Editar" style="line-height:inherit" class="col-1 fas fa-edit"></i>
+          <i @click="deleteOkupa" title="Borrar" style="line-height:inherit" class="col-1 fas fa-trash-alt"></i>
         </div>
         <div v-else class="card-title">
           <h5 >Asociación</h5>
@@ -50,8 +50,8 @@
       <div class="card-body">
         <div class="card-tittle row">
           <h5 class="card-title col-10">Miembros</h5>
-          <i v-if="role=='admin'" @click="adminAddMember" style="line-height:inherit;color:green" class="col-1 fa fa-user-plus"></i>
-          <i v-else @click="addMember" style="line-height:inherit;color:green" class="col-1 fa fa-user-plus"></i>
+          <i v-if="role=='admin'" title="Añadir miembro" @click="adminAddMember" style="line-height:inherit;color:green" class="col-1 fa fa-user-plus"></i>
+          <i v-else @click="addMember" title="Añadir Miembro" style="line-height:inherit;color:green" class="col-1 fa fa-user-plus"></i>
           <AdminAddOkupa @addNewUser="addNewUserFunc"></AdminAddOkupa>
         </div>
         <div v-if="Object.keys(miembrosdata).length > 0">
@@ -60,7 +60,7 @@
               <p class="card-text"><small>{{ miembro.full_name }} </small></p>
             </div>
             <div v-if="(role == 'admin' || user_id == miembro.user_id)" class=" col-4">
-              <i @click="delMember(miembro.user_id)" style="color:red" class="fa fa-remove"></i>
+              <i @click="delMember(miembro.user_id)" title="Borrar miembro" style="color:red" class="fa fa-remove"></i>
             </div>
           </div>
         </div>

@@ -44,7 +44,6 @@ const actions = {
         context.commit(LOGOUT, data); 
     }
 }
-
 //app store mutations
 const mutations = {
     [CHANGE_ROLE] (state, n) {

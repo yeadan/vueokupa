@@ -7,7 +7,7 @@
         <div class="card-body" >
           <div v-if="role=='admin'" class="card-title row">
             <h5 class="col-10">Propietarios</h5>
-            <i  @click="addOwner" style="line-height:inherit;color:green" class="col-2 fa fa-plus"></i>
+            <i @click="addOwner" title="Añadir" style="line-height:inherit;color:green" class="col-2 fa fa-plus"></i>
             <AddOwner></AddOwner>
           </div>
           <div v-else class="card-title">
@@ -29,8 +29,8 @@
       <div class="card-body">
         <div v-if="role=='admin' && ownersdata != ''" class="row card-title">
           <h5 class="col-9 ">Propietario</h5>
-          <i @click="editOwner" style="line-height:inherit" class="col-1 fas fa-edit"></i>
-          <i @click="deleteOwner" style="line-height:inherit" class="col-1 fas fa-trash-alt"></i>
+          <i @click="editOwner" title="Editar" style="line-height:inherit" class="col-1 fas fa-edit"></i>
+          <i @click="deleteOwner" title="Borrar" style="line-height:inherit" class="col-1 fas fa-trash-alt"></i>
         </div>
         <div v-else class="card-title">
           <h5 >Propietario</h5>

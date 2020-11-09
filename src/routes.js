@@ -24,7 +24,7 @@ export const routes = [
 
 // Función para proteger páginas y que únicamente sean accesibles con login
 function protect (to, from, next) {
-    if (store.getters.getUserID != '') 
+    if (store.getters.getUserID != '' && store.getters.getToken != '') 
         next()
     else
         next('/login')
@@ -32,7 +32,7 @@ function protect (to, from, next) {
 //Solo accesibles por un admin
 function protectAdmin (to, from, next) {
     console.log(store.getters.getRole)
-    if (store.getters.getUserID != '' && store.getters.getRole =="admin")
+    if (store.getters.getUserID != '' && store.getters.getToken != '' && store.getters.getRole =="admin")
         next()
     else
         next('/login')
