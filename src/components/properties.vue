@@ -4,25 +4,17 @@
   <div class="row">
     <div class="col-6 card">
       <div class="card-body" >
-        <div v-if="role=='admin'" class="card-title row">
-          <h3 class="col-10"> Propiedades</h3>
-          <div class="col-2">
-            <router-link to="/addproperties"><i style="line-height:inherit;color:green" title="Añadir" class="col-2 fa fa-plus"/></router-link> 
-          </div>
-
+        <div class="card-title row">
+          <h3 class="col-8"> Propiedades</h3>
+          <form class="col-3 ">
+            <input type="text" id="inputFiltro" placeholder="Filtrar..." class="form-control inputsm" >
+          </form>
+          <router-link v-if="role=='admin'" to="/addproperties"><i style="line-height:inherit;color:green;margin:7px" title="Añadir" class="fa fa-plus"/></router-link> 
         </div>
-        <div v-else class="card-title">
-          <h3>Propiedades</h3>
-        </div>
-        <div class="">
-        <form class="float-right">
-            <input type="text" id="aso" placeholder="Filtrar..." class="filter form-control inputsm" >
-        </form>
-        </div>
-        <div  v-if="(Object.keys(datos.properties).length > 0 && Object.keys(datos.owners).length > 0 && Object.keys(datos.okupas).length > 0)">
+        <div v-if="(Object.keys(datos.properties).length > 0 && Object.keys(datos.owners).length > 0 && Object.keys(datos.okupas).length > 0)">
           <table id="listProperty" class="table table-striped  ">
             <thead>
-              <tr>
+              <tr >
                 <th>ID</th>
                 <th>Okupa</th>
                 <th>Owner</th>
@@ -31,7 +23,7 @@
               </tr>
             </thead>
             <tbody >
-              <tr v-for="(okupa, index) in datos.properties" :key="index" @click="getproperty(okupa.property_id)" >
+              <tr class="filter" v-for="(okupa, index) in datos.properties" :key="index" @click="getproperty(okupa.property_id)" >
                 <td>{{okupa.property_id}}</td>
                 <td>{{datos.okupas[okupa.okupa_id].name}}</td>
                 <td>{{datos.owners[okupa.owner_id].name}} </td>
@@ -53,8 +45,8 @@
         <div v-if="role=='admin' && propertydata != ''" class="row card-title">
           <h5 class="col-9 ">Propiedad</h5>
           <i style="line-height:inherit" title="Editar" @click="AdminEditProperty" class="col-1 fas fa-edit"></i>
-          <i style="line-height:inherit" title="Borrar" @click="deleteProperty" class="col-1 fas fa-trash-alt"></i>
-          <AdminEditProperty @editProperty="editPropertyFunc"></AdminEditProperty>
+          <i style="line-height:inherit" title="Borrar" @click="deleteProperty(propertydata.property_id)" class="col-1 fas fa-trash-alt"></i>
+          <AdminEditProperty></AdminEditProperty>
         </div>
         <div v-else class="card-title">
           <h5 >Propiedad</h5>
@@ -115,10 +107,12 @@ import $ from 'jquery'
 export default {
   data () {
     return {
+      list: {
+        okupa:[],
+        owner:[]
+      },
       role: '',
       propertydata: '',
-      activeProperty:0,
-      adminUser:0,
       theOwner:"",
       theOkupa:""
     }
@@ -134,24 +128,65 @@ export default {
     this.loadProperties()
 
     //Para filtrar los datos, con jquery
-    $("#aso").on("keyup", function() {
+    $("#inputFiltro").on("keyup", function() {
       var value = $(this).val().toLowerCase();
-      $("#listProperty tr").filter(function() {
+      $("#listProperty .filter").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       })
     })
     
   },
   methods: {
-    editPropertyFunc(data) {
-      this.adminUser = data
-      
-    },
+    loadProperties() {
+            const url = 'http://localhost:4444/'+'properties'
+            var index2 = ''
+            var index3 = ''
+            axios.get(url)
+            .then(response => {
+              this.datos['properties'] = response.data
+              let promises = []
+              let promises2 = []
+              for (var i=0; i<this.datos['properties'].length; i++)
+              {
+                index2 = this.datos['properties'][i].okupa_id
+                const url2 = 'http://localhost:4444/okupas/'+ index2
+                promises.push (
+                axios.get(url2)
+                .then(response => {
+                  var a = response.data.okupa_id
+                  this.list.okupa[a]= response.data
+                })
+                .catch(error => {
+                  console.log(error)
+                }) )
+
+                index3 = this.datos['properties'][i].owner_id
+                const url3 = 'http://localhost:4444/owners/'+ index3
+                promises2.push (
+                axios.get(url3)
+                .then(response => {
+                  var x = response.data.owner_id
+                  this.list.owner[x]= response.data
+                })
+                .catch(error => {
+                  console.log(error)
+                }) )
+              }
+              Promise.all(promises).then(()=> { 
+                this.datos.okupas = this.list.okupa               
+              })
+              Promise.all(promises2).then(()=> { 
+                this.datos.owners = this.list.owner
+              })
+            })
+            .catch(error => {
+              console.log(error)
+            })
+          },
     AdminEditProperty() {
       this.$modal.show('edit-property-modal', {usedProperty: this.propertydata})
     },
     getproperty(index){
-      this.activeProperty = index
       const url = 'http://localhost:4444/properties/'+index
       axios.get(url)
       .then(response => {
@@ -186,12 +221,12 @@ export default {
       })
       return this.theOkupa
     },
-    deleteProperty() {
+    deleteProperty(target) {
       var r = confirm("¿Estás seguro de querer borrarla?")
       if (r) {
         axios({
           method: 'delete',
-          url:'http://localhost:4444/properties/'+this.activeProperty,
+          url:'http://localhost:4444/properties/'+target,
           }).then(function (response) {
           // Respuesta
             console.log(response)
@@ -206,9 +241,12 @@ export default {
 }
 </script>
 <style scoped>
-
+table {
+  font-size: smaller;
+}
 tbody tr:hover {  
   background-color: #dfedc4;  
-  color: #666666;  
+  color: #666666;
+  cursor: pointer;  
 }
 </style>

@@ -18,7 +18,15 @@
             </select>
             <div class="col-3"/>
             <label for="input-type"><strong>Tipo </strong></label>
-            <input type="text" v-model="input.type" class="form-control col-6" id="input-type" placeholder="Type">
+            <select id="select_typ"  class="mx-4 col-4" v-model="selectedType"  >
+            <option value="0" disabled selected>Escoge una...</option>
+            <option  value="estudio">Estudio</option>
+            <option  value="chalet">Chalet</option>
+            <option  value="chalet adosado">Chalet adosado</option>
+            <option  value="piso">Piso</option>
+            <option  value="local">Local</option>
+            <option  value="otro">Otro</option>
+          </select>
             <div class="col-3"/>
             <label for="input-message"><strong>Descripción </strong></label>
             <textarea class="form-control" v-model="input.description" name="description" type="text" id="input-message" placeholder="Description">
@@ -26,7 +34,7 @@
         </div>
     </form>
         <div class="mx-auto col-6">
-            <button @click="clickOK({type:input.type,description:input.description,owner_id:selectedOwner,okupa_id:selectedOkupa},'put','properties/'+input.id,false)"  class="btn btn-success" >Guardar</button>
+            <button @click="clickOK({type:selectedType,description:input.description,owner_id:selectedOwner,okupa_id:selectedOkupa},'put','properties/'+input.id,false)"  class="btn btn-success" >Guardar</button>
             <button @click="clickClose('edit-property-modal')"  class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
   </div>
@@ -43,6 +51,7 @@ export default {
             return {
                 selectedOwner:0,
                 selectedOkupa:0,
+                selectedType:0,
                 input: {
                     id:0,
                     type: "",
