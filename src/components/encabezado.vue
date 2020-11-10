@@ -3,12 +3,11 @@
     <nav class="navbar navbar-dark bg-dark">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">PropertyMap</a> 
+          <router-link class="navbar-brand" to='/'>PropertyMap</router-link>
         </div>
         <ul class="nav navbar-nav">
           <li><router-link class="active" to="/">Inicio</router-link></li>
           <li><router-link to="/okupas">Associations</router-link></li>
-          <li><router-link to="/users">Users</router-link></li>
           <li><router-link to="/owners">Owners</router-link></li>
           <li v-if="this.$store.getters.getRole=='admin'" class="nav-item dropdown">
             <router-link to="/properties" >Properties</router-link>
@@ -20,9 +19,9 @@
           <li v-else><router-link to="/properties" >Properties</router-link></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><router-link class="fa fa-sign-in" to="/signup"> Sign Up</router-link></li>
-          <li><router-link class="fa fa-user" to="/login"> Login</router-link></li>
-          <li><button class="button btn-light" type="button" v-on:click="logout()">Logout</button></li>
+          <li v-if="this.$store.getters.getToken !='' "><router-link class="fa fa-user" title="Users" to="/users"> Users </router-link></li>
+          <li v-else><router-link class="fa fa-sign-in" title="Sign Up" to="/register"> Sign Up</router-link></li>
+          <li><button class="btn-sm btn-light" type="button" v-on:click="logout()">Logout</button></li>
         </ul>
       </div>
     </nav>
@@ -37,9 +36,9 @@ export default {
       var self = this
       this.$store.dispatch(ACTION_LOGOUT)
       .then(() => {
-        // Vuelve al login
-          if (self.$router.resolve(location).href !='/#app/login') {
-            self.$router.push('/login')      
+        // Vuelve a la pantalla de registro
+          if (self.$router.resolve(location).href !='/#app/register') {
+            self.$router.push('/register')      
           }
       })
     }

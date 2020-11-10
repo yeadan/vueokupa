@@ -1,11 +1,13 @@
 <template>
-    <div id="signup container">
-        <form class="form" >
+    <div id="signup">
+        <form class="form-group" >
             <h1>Sign up</h1>
-            <input type="text" autocomplete="on" name="username" v-model="input.username" placeholder="Username" />
-            <input type="text" name="fullname" v-model="input.fullname" placeholder="Fullname" />
-            <input type="password" autocomplete="on" v-on:keyup.enter="signup()" name="password" v-model="input.password" placeholder="Password" />
-            <button type="button" v-on:click="signup()">Sign up</button>
+            <br>
+            <input class="form-control" type="text" autocomplete="on" name="username" v-model="input.username" placeholder="Email" />
+            <input class="form-control" type="text" name="fullname" v-model="input.fullname" placeholder="Fullname" />
+            <input class="form-control" type="password" autocomplete="on" v-on:keyup.enter="signup()" name="password" v-model="input.password" placeholder="Password" />
+            <input class="form-control" type="password" autocomplete="on" v-on:keyup.enter="signup()" name="password2" v-model="input.password2" placeholder="Repeat Password" />
+            <button class="btn-sm btn-secondary" type="button" v-on:click="signup()">Sign up</button>
         </form>
         <transition name="fade">
             <div v-if="show">
@@ -49,6 +51,16 @@ import '../interceptor'
                 }, 850)
             },
             signup() {
+                if (this.input.username == "" || this.input.fullname == ""
+                    || this.input.password == "") 
+                {
+                    this.testToast("Username, fullname and password must be present");
+                    return
+                }
+                if (this.input.password != this.input.password2) {
+                    this.testToast("The two password fields don't match")
+                    return
+                }
                 const self = this
                 var fecha = new Date()
                 if (this.input.username != "" && this.input.fullname != ""
@@ -67,7 +79,7 @@ import '../interceptor'
                         console.log(response.data)
                         self.testToast("User registered!")
                         setTimeout(function () {
-                                self.$router.push('/login')
+                                self.$router.push('/register')
                         }, 1500);
                         
                     }).catch(function (error) {     
@@ -83,9 +95,11 @@ import '../interceptor'
 </script>
 
 <style scoped>
+.btn-secondary {
+    margin-top: 15px;
+}
+
 #signup {
-    width: 500px;
-    border: 1px solid #CCCCCC;
     background-color: #FFFFFF;
     margin: auto;
     margin-top: 50px;
@@ -103,12 +117,12 @@ h3 {
 
 input {
   display: inline-block;
-  margin: 0 5px;
+  margin: 5px;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 1.3s ease;
+  transition: opacity 2s ease;
 }
 
 .fade-enter,

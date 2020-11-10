@@ -1,7 +1,8 @@
 <template>
   <div class="body">
     <div id="inicio">
-      <h3>Página de Inicio ({{role}})</h3>
+      <h3 v-if='role!=""'>Página de Inicio ({{role}})</h3>
+      <h3 v-else>Página de Inicio</h3>
       <br>
       <br>
       <img src="../../public/logo_okupa.png">

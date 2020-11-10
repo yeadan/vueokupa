@@ -10,7 +10,7 @@ axios.interceptors.response.use((response) => {
     if (error.response.status == 401) {
         console.log('unauthorized, logging out ...')
         store.dispatch(ACTION_LOGOUT)
-        router.push('/login')
+        router.push('/register')
     }
     return Promise.reject(error);
 })
