@@ -8,7 +8,6 @@
     <div class="col-5">
     <Signup/>
     </div>
-
   </div>    
 </template>
 <script>
@@ -18,6 +17,12 @@ export default {
     components: {
         Login: login,
         Signup: signup
-    }
+    },
+    mounted() {
+    if (this.$store.getters.getUserID == ''){
+        console.log("No user")
+        }
+    else this.$router.push('/')
+}
 }
 </script>

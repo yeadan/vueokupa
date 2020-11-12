@@ -7,6 +7,11 @@ import { ACTION_LOGOUT } from './store/app.store'
 axios.interceptors.response.use((response) => { 
     return response;
 },  (error) => {
+    if (!error.response) {
+        // network error
+        console.error('Error: Network Error')
+        return
+    }
     if (error.response.status == 401) {
         console.log('unauthorized, logging out ...')
         store.dispatch(ACTION_LOGOUT)

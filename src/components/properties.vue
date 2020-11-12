@@ -1,9 +1,7 @@
 <template >
-<div id="okupas" >
-  <h2 align="center">(Privado) Propiedades </h2>
-  <div class="row">
-    <div class="col-6 card">
-      <div class="card-body" >
+  <div class="row" id="properties">
+    <div class="col-lg-6 col-md-12 col-xl-6">
+      <div style="margin:10px"  >
         <div class="card-title row">
           <h3 class="col-8"> Propiedades</h3>
           <form class="col-3 ">
@@ -39,7 +37,7 @@
         </div>
       </div>
     </div>
-  <div class="col-3">
+  <div class="col-lg-3 col-md-6 col-xl-3">
     <div class="card">    
       <div class="card-body">
         <div v-if="role=='admin' && propertydata != ''" class="row card-title">
@@ -58,7 +56,6 @@
           <p  class="card-text"><small><strong>Descripción: </strong> {{propertydata.description }}</small></p>
           <p  class="card-text"><small><strong>Tipo: </strong>{{ propertydata.type }}</small></p>
           <p  class="card-text"><small><strong>Fecha registro: </strong>{{ propertydata.created }}</small></p>
-
         </div>
         <div v-else class="alert alert-danger" role="alert">
           <small>Ninguna propiedad seleccionada</small>
@@ -66,7 +63,7 @@
       </div>
     </div>
   </div>
-  <div class="col-3">
+  <div class="col-lg-3 col-md-6 col-xl-3">
     <div class="card">    
       <div class="card-body">
         <div v-if="role=='admin' && propertydata != ''" class="row card-title">
@@ -78,24 +75,22 @@
         <div align="left" v-if='propertydata != ""'>
           <p  class="card-text"><small><strong>Calle: </strong>{{ propertydata.calle }}</small></p>
           <div align="left" class="card-text ">
-          <p ><small><strong>Número: </strong>{{ propertydata.numero }}</small>
-          <small class="ml-3"><strong> Piso: </strong>{{ propertydata.piso }}<strong>º&nbsp; </strong>{{ propertydata.puerta }}</small></p></div>
-          <p  class="card-text"><small><strong>CP: </strong>{{ propertydata.codigo_postal }}</small></p>
-          <p  class="card-text"><small><strong>Núcleo: </strong> {{propertydata.nucleo }}</small></p>
-          <p  class="card-text"><small><strong>Población: </strong>{{ propertydata.poblacion }}</small></p>
-          <p  class="card-text"><small><strong>Municipio: </strong>{{ propertydata.municipio }}</small></p>
-          <p  class="card-text"><small><strong>Provincia: </strong>{{ propertydata.provincia }}</small></p>
-          <p  class="card-text"><small><strong>Comunidad: </strong>{{ propertydata.comunidad }}</small></p>
-
-        </div>
-        <div v-else class="alert alert-danger" role="alert">
-          <small>Ninguna propiedad seleccionada</small>
+            <p ><small><strong>Número: </strong>{{ propertydata.numero }}</small>
+            <small class="ml-3"><strong> Piso: </strong>{{ propertydata.piso }}<strong>º&nbsp; </strong>{{ propertydata.puerta }}</small></p></div>
+            <p  class="card-text"><small><strong>CP: </strong>{{ propertydata.codigo_postal }}</small></p>
+            <p  class="card-text"><small><strong>Núcleo: </strong> {{propertydata.nucleo }}</small></p>
+            <p  class="card-text"><small><strong>Población: </strong>{{ propertydata.poblacion }}</small></p>
+            <p  class="card-text"><small><strong>Municipio: </strong>{{ propertydata.municipio }}</small></p>
+            <p  class="card-text"><small><strong>Provincia: </strong>{{ propertydata.provincia }}</small></p>
+            <p  class="card-text"><small><strong>Comunidad: </strong>{{ propertydata.comunidad }}</small></p>
+          </div>
+          <div v-else class="alert alert-danger" role="alert">
+            <small>Ninguna propiedad seleccionada</small>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
-</div>
 </template>
 
 <script>
@@ -134,7 +129,6 @@ export default {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       })
     })
-    
   },
   methods: {
     loadProperties() {

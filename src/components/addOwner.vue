@@ -15,7 +15,7 @@
         </div>
     </form>
         <div class="col-6 mx-auto">
-            <button @click="clickOK({name:input.name,type_owner:input.type, description:input.description},'post','owners',true)"  class="btn btn-success" >Añadir</button>
+            <button @click="clickOK({name:input.name,type_owner:input.type, description:input.description},'post','owners',true);clickClose('add-owner-modal')"  class="btn btn-success" >Añadir</button>
             <button @click="clickClose('add-owner-modal')"  class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
   </div>

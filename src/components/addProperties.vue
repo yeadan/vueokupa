@@ -1,7 +1,7 @@
 <template >
 <div id="properties" class="container" >
   <div class="container row" align="left">
-    <div class="col-5">
+    <div class="col-lg-6 col-md-12">
       <h3>Datos</h3>
       <table>
         <tr>
@@ -20,14 +20,14 @@
         </tr>
         <tr>
           <td><label class="" for="select_typ">Tipo  </label></td>
-          <td><select id="select_typ"  class="" @change="get_type()" >
-            <option value="0" disabled selected>Escoge una...</option>
-            <option  :value="1">Estudio</option>
-            <option  :value="2">Chalet</option>
-            <option  :value="3">Chalet adosado</option>
-            <option  :value="4">Piso</option>
-            <option  :value="5">Local</option>
-            <option  :value="6">Otro</option>
+          <td><select id="select_typ"  class="" v-model="resultado.type" >
+            <option value="0" disabled selected>Escoge uno...</option>
+            <option  value="estudio">Estudio</option>
+            <option  value="chalet">Chalet</option>
+            <option  value="chalet adosado">Chalet adosado</option>
+            <option  value="piso">Piso</option>
+            <option  value="local">Local</option>
+            <option  value="otro">Otro</option>
           </select></td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@
 
       </div>
     </div>
-  <div id="div_address" class="col-6" >  
+  <div id="div_address" class="col-lg-6 col-md-12" >  
     <h3>Dirección</h3>
     <table>
       <tr>
@@ -98,36 +98,25 @@
           <option value="0" disabled selected>Escoge una...</option>
           <option v-for="(calle, index) in calles" :key="index" :value="calle.CVIA">{{calle.TVIA+' '+calle.NVIAC}}</option>
         </select></td>
-      </tr>
-      <tr >
-        <td >
-          <tr>
-            <label  for="num">Número</label>
-            <input disabled style="width:40px;text-align:center" type="number" id="num" @change="get_number($event.target.value)">
-            <label for="piso">Piso</label>
-          </tr>
-        </td>
-        <td>
-          <tr>
-            <input disabled style="width:40px;text-align:center" type="number" id="piso" @change="get_floor($event.target.value)">
-            <label for="puerta">Puerta</label>
-            <input maxlength="1" disabled style="width:40px;text-align:center;text-transform:uppercase" id="puerta" @change="get_door($event.target.value)">
-          </tr>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button class="btn btn-success" id="btn_add" @click="comprobate()">Añadir</button>
-        </td>
-        <td>
-          <router-link class="btn btn-danger" to="/properties">Cancelar</router-link>
-        </td>        
-      </tr>
+      </tr>  
     </table>
+    <div class="">
+      <label  for="num">Número</label>
+      <input disabled style="width:60px;text-align:center" type="number" id="num" @change="get_number($event.target.value)">
+      <label for="piso">Piso</label>
+
+      <input disabled style="width:60px;text-align:center" type="number" id="piso" @change="get_floor($event.target.value)">
+      <label for="puerta">Puerta</label>
+      <input maxlength="1" disabled style="width:60px;text-align:center;text-transform:uppercase" id="puerta" @change="get_door($event.target.value)">
+    </div>
+    <div>
+      <button class="btn btn-success" id="btn_add" @click="comprobate()">Añadir</button>
+      <router-link style="margin:10px" class="btn btn-danger" to="/properties">Cancelar</router-link>
+    </div>
   </div>  
-    <div class=" ">
+  <div class=" ">
     <h3>Resultado</h3>
-    {{ resultado}}
+    {{ resultado }}
   </div>
   </div>
 
@@ -143,7 +132,7 @@ export default {
     return {
       selectThis: {com:'',pro:'',mun:'',pob:'',nuc:'',CPs:'',Cal:''},
       key: '2fbda50bcbdc4f0d5ff1b7f08546174f90e60e0de4cc83d2f4cab5ea2708a989',
-      resultado:{owner_id:0,okupa_id:0,user_id:parseInt(this.$store.getters.getUserID),type:'',description:'',created:0,comunidad:'',provincia:'',municipio:'', poblacion:'', nucleo:'', codigo_postal:'',calle:'',numero:0,piso:0,puerta:''},
+      resultado:{owner_id:0,okupa_id:0,user_id:parseInt(this.$store.getters.getUserID),type:0,description:'',created:0,comunidad:'',provincia:'',municipio:'', poblacion:'', nucleo:'', codigo_postal:'',calle:'',numero:0,piso:0,puerta:''},
       comunidades: [], provincias: [], municipios: [],
       poblaciones: [], nucleos: [], codigosPostal: [],
       calles: [],
@@ -270,9 +259,6 @@ export default {
       })
 
     },
-    get_type() {
-            this.resultado.type = (document.getElementById('select_typ').options[document.getElementById('select_typ').selectedIndex].text).toLowerCase();
-    },
     get_end() {
       //let ID = this.selectThis.cal
       document.getElementById('num').removeAttribute('disabled')
@@ -302,7 +288,7 @@ export default {
       }
       let thisDate = new Date().getTime()
       this.resultado.created = new Date(thisDate).toISOString()
-      
+      var self = this
       axios({
           method: 'post',
           url:'http://localhost:4444/properties',
@@ -310,8 +296,8 @@ export default {
       }).then(function (response) {
           // Respuesta
           console.log(response.data)
-          location.reload(false)
           alert("Creado")
+          self.$router.push('/properties')
       }).catch(function (error) {     
           console.log("ERROR: "+error)
       })        

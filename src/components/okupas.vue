@@ -1,8 +1,7 @@
 <template >
-<div id="okupas" class="container">
-  <h2 align="center">(Privado) Asociaciones </h2>
-  <div class="row">
-    <div class="col-4 card">
+<div id="okupas" class="row">
+  <div class="card col-lg-4 col-xl-4 col-md-12"> 
+    <div class=" ">
       <div class="card-body" >
         <div v-if="role=='admin'" class="card-title row">
           <h5 class="col-10">Asociaciones</h5>
@@ -22,7 +21,8 @@
         </div>
       </div>
     </div>
-  <div class="col-4">
+  </div>
+  <div class="col-lg-4 col-xl-4 col-md-6">
     <div class="card">    
       <div class="card-body">
         <div v-if="role=='admin' && okupasdata != ''" class="row card-title">
@@ -46,7 +46,7 @@
       </div>
     </div>
   </div>
-    <div class="container card col-4">
+    <div class=" card col-lg-4 col-xl-4 col-md-6">
       <div class="card-body">
         <div class="card-tittle row">
           <h5 class="card-title col-10">Miembros</h5>
@@ -70,7 +70,6 @@
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -100,15 +99,13 @@ export default {
   mounted () {
     this.role = this.$store.getters.getRole
     this.user_id = this.$store.getters.getUserID
-    this.load('okupas')
-    
+    this.load('okupas')    
   },
   methods: {
     addNewUserFunc(data) {
       this.adminUser = data
       this.addMember()
     },
-    
     addOkupa() {
       this.$modal.show('add-okupa-modal')
     },

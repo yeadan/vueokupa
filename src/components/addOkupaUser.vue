@@ -9,7 +9,7 @@
             <option v-for="(user, index) in datos.users" :key="index" v-bind:value="user.user_id" v-text="user.full_name" ></option>
     </select>
     <div class="col-6 mx-auto">
-        <button @click="clickOK()"  class="btn btn-success" >Añadir</button>
+        <button @click="clickOK();clickClose()"  class="btn btn-success" >Añadir</button>
         <button @click="clickClose()"  class="btn btn-danger" data-dismiss="modal">Cancelar</button>
     </div>
   </div>

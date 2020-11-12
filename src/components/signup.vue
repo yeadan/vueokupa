@@ -33,14 +33,6 @@ import '../interceptor'
                 showData:""
             }
         },
-        mounted() {
-            if (this.$store.getters.getUserID == ""){
-                console.log("No user")
-                }
-            else {
-                this.$router.push('/')
-            }
-        },
         methods: {
             testToast(message) {
                 this.show = true;
@@ -83,7 +75,11 @@ import '../interceptor'
                         }, 1500);
                         
                     }).catch(function (error) {     
-                        console.log("ERROR: "+error)
+                        if (!error.response) {
+                            // network error
+                            self.testToast('Error: Network Error')
+                            return
+                        }
                         self.testToast("The username, fullname or password is incorrect")
                     })        
                 } else {

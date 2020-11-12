@@ -13,7 +13,7 @@
         </div>
     </form>
         <div class="col-6 mx-auto">
-            <button @click="clickOK({name:input.name, description:input.description},'put','okupas/'+input.id,false)"  class="btn btn-success" >Guardar</button>
+            <button @click="clickOK({name:input.name, description:input.description},'put','okupas/'+input.id,false);clickClose('edit-okupa-modal')"  class="btn btn-success" >Guardar</button>
             <button @click="clickClose('edit-okupa-modal')"  class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
   </div>

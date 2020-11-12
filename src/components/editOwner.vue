@@ -16,7 +16,7 @@
     </form>
         <div class="mx-auto col-6">
             <button @click="clickOK({name:input.name, 
-                type_owner:input.type, description:input.description},'put','owners/'+input.id,false)"  class="btn btn-success" >Guardar</button>
+                type_owner:input.type, description:input.description},'put','owners/'+input.id,false);clickClose('edit-owner-modal')"  class="btn btn-success" >Guardar</button>
             <button @click="clickClose('edit-owner-modal')"  class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
   </div>

@@ -1,5 +1,6 @@
 //import $ from 'jquery'
 import axios from 'axios'
+//import {router} from './main'
 
 export const dataMixins = {
     data() {
@@ -48,7 +49,8 @@ export const modalMixins = {
                     // Respuesta
                     console.log(response.data)
                     alert("Guardado")
-                    location.reload('/')
+                  //  router.go(0)
+                    //location.reload('/')
                 }).catch(function (error) {     
                     console.log("ERROR: "+error)
                 })  

@@ -1,30 +1,28 @@
 <template >
-<div id="owners" class="container">
-  <h2 align="center">(Privado) Propietarios </h2>
-  <div class="row">
-    <div class="col 4">
-    <div class="card" >
-        <div class="card-body" >
-          <div v-if="role=='admin'" class="card-title row">
-            <h5 class="col-10">Propietarios</h5>
-            <i @click="addOwner" title="Añadir" style="line-height:inherit;color:green" class="col-2 fa fa-plus"></i>
-            <AddOwner></AddOwner>
-          </div>
-          <div v-else class="card-title">
-            <h5>Propietarios</h5>
-          </div>
-          <div v-if="Object.keys(datos.owners).length > 0">
-          <ul class="list-group" v-for="(owner, index) in datos.owners" :key="index">
-            <li class=" list-group-item list-group-item-action" @click="getowner(owner.owner_id)" ><small><strong>{{owner.owner_id}} : </strong>{{ owner.name }}</small></li>
-          </ul>
-          </div>
-          <div v-else class="alert alert-danger" role="alert">
-             No hay ningún propietario
-          </div>
+<div id="owners" class="row">
+  <div class="col-12 col-md-6 card">
+    <div class="" >
+      <div class="card-body" >
+        <div v-if="role=='admin'" class="card-title row">
+          <h5 class="col-10">Propietarios</h5>
+          <i @click="addOwner" title="Añadir" style="line-height:inherit;color:green" class="col-2 fa fa-plus"></i>
+          <AddOwner></AddOwner>
+        </div>
+        <div v-else class="card-title">
+          <h5>Propietarios</h5>
+        </div>
+        <div v-if="Object.keys(datos.owners).length > 0">
+        <ul class="list-group" v-for="(owner, index) in datos.owners" :key="index">
+          <li class=" list-group-item list-group-item-action" @click="getowner(owner.owner_id)" ><small><strong>{{owner.owner_id}} : </strong>{{ owner.name }}</small></li>
+        </ul>
+        </div>
+        <div v-else class="alert alert-danger" role="alert">
+            No hay ningún propietario
         </div>
       </div>
     </div>
-  <div class="col 4">
+  </div>
+  <div class="col-12 col-md-6">
     <div class="card">    
       <div class="card-body">
         <div v-if="role=='admin' && ownersdata != ''" class="row card-title">
@@ -34,8 +32,8 @@
         </div>
         <div v-else class="card-title">
           <h5 >Propietario</h5>
-       </div>
-          <EditOwner></EditOwner>
+        </div>
+        <EditOwner></EditOwner>
         <div align="left" v-if='ownersdata != ""'>
           <p  class="card-text"><small><strong>Id propietario: </strong>{{ ownersdata.owner_id }}</small></p>
           <p  class="card-text"><small><strong>Nombre: </strong>{{ ownersdata.name }}</small></p>
@@ -48,7 +46,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 </div>
 </template>

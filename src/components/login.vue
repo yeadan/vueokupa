@@ -30,12 +30,6 @@ import '@/interceptor'
                 showData:""
             }
         },
-        mounted() {
-            if (this.$store.getters.getUserID == ''){
-                console.log("No user")
-                }
-            else this.$router.push('/')
-        },
         methods: {
             testToast(message) {
                 this.show = true;
@@ -64,7 +58,11 @@ import '@/interceptor'
                         self.$router.push('/')
                         .catch((error => {console.log(error)}))
                     }).catch(function (error) {     
-                        console.log("ERROR: "+error)
+                        if (!error.response) {
+                            // network error
+                            self.testToast('Error: Network Error')
+                            return
+                        }
                         self.testToast("The username or password is incorrect")
                     })        
                 } else {

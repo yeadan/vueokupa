@@ -15,6 +15,7 @@ export const routes = [
     { path:'/owners', beforeEnter: protect, component: owners},
     { path:'/users', beforeEnter: protect, component: usuarios},
     { path:'/okupas', beforeEnter: protect, component: okupas},
+    { path:'/propertie', beforeEnter: protect, component: properties},
     { path:'/properties', beforeEnter: protect, component: properties},
     { path:'/addproperties', beforeEnter: protectAdmin, component: addProperties},
     { path:'*', component: NotFound }

@@ -19,7 +19,7 @@
         </div>
     </form>
         <div class="col-6 mx-auto">
-            <button @click="clickOK()"  class="btn btn-success" >Guardar</button>
+            <button @click="clickOK();clickClose()"  class="btn btn-success" >Guardar</button>
             <button @click="clickClose()"  class="btn btn-danger" data-dismiss="modal">Cancelar</button>
         </div>
   </div>
@@ -71,7 +71,6 @@ export default {
                     }).then(function (response) {
                         // Respuesta
                         console.log(response.data)
-                        location.reload(false)
                         console.log("Guardado")
                     }).catch(function (error) {     
                         console.log("ERROR: "+error)
