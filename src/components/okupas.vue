@@ -1,29 +1,39 @@
 <template >
 <div id="okupas" class="row">
-  <div class="card col-lg-4 col-xl-4 col-md-12"> 
-    <div class=" ">
-      <div class="card-body" >
-        <div v-if="role=='admin'" class="card-title row">
-          <h5 class="col-10">Asociaciones</h5>
-          <i @click="addOkupa" title="Añadir" style="line-height:inherit;color:green" class="col-2 fa fa-plus"></i>
-           <AddOkupa></AddOkupa>
+  <div class="col-lg-6 col-md-12 col-xl-6">
+    <div style="margin:10px"  >
+      <div class="card-title row">
+          <h3 class="col-8"> Asociaciones</h3>
+          <form class="col-3 ">
+            <input type="text" id="inputFiltro" placeholder="Filtrar..." class="form-control inputsm" >
+          </form>
+            <i v-if="role=='admin'" @click="addOkupa" title="Añadir" style="line-height:inherit;color:green;margin:7px" class=" fa fa-plus"></i>
         </div>
-        <div v-else class="card-title">
-          <h5>Asociaciones</h5>
-        </div>
+        <AddOkupa></AddOkupa>
         <div v-if="Object.keys(datos.okupas).length > 0">
-          <ul class="list-group" v-for="(okupa, index) in datos.okupas" :key="index">
-            <li class=" list-group-item list-group-item-action" @click="getokupa(okupa.okupa_id),getmembers(okupa.okupa_id)" ><small><strong>{{okupa.okupa_id}} : </strong>{{ okupa.name }}</small></li>
-          </ul>
+          <table id="listOkupa" class="table table-striped  ">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="filter" v-for="(okupa, index) in datos.okupas" :key="index" @click="getokupa(okupa.okupa_id),getmembers(okupa.okupa_id)" >
+                <td>{{okupa.okupa_id}}</td>
+                <td>{{ okupa.name }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div v-else class="alert alert-danger" role="alert">
            No hay asociaciones okupas
         </div>
-      </div>
+
     </div>
   </div>
-  <div class="col-lg-4 col-xl-4 col-md-6">
-    <div class="card">    
+  <div class="col-lg-3 col-xl-3 col-md-6">
+    <div class="card h-100">    
       <div class="card-body">
         <div v-if="role=='admin' && okupasdata != ''" class="row card-title">
           <h5 class="col-9 ">Asociación</h5>
@@ -46,7 +56,8 @@
       </div>
     </div>
   </div>
-    <div class=" card col-lg-4 col-xl-4 col-md-6">
+    <div class="col-lg-3 col-md-6 col-xl-3">
+      <div class="card h-100">
       <div class="card-body">
         <div class="card-tittle row">
           <h5 class="card-title col-10">Miembros</h5>
@@ -68,8 +79,10 @@
           <small>No se ha encontrado ningún miembro</small>
         </div>
       </div>
+      </div>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -79,12 +92,12 @@ import addOkupa from './addOkupa.vue'
 import editOkupa from './editOkupa.vue'
 import '../interceptor'
 import axios from 'axios'
+import $ from 'jquery'
 export default {
   data () {
     return {
       role: '',
       okupasdata: '',
-     // listokupas: [],
       miembrosdata:[],
       activeOkupa:0,
       adminUser:0,
@@ -99,7 +112,15 @@ export default {
   mounted () {
     this.role = this.$store.getters.getRole
     this.user_id = this.$store.getters.getUserID
-    this.load('okupas')    
+    this.load('okupas')   
+    //Para filtrar los datos, con jquery
+
+    $("#inputFiltro").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#listOkupa .filter").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    }) 
   },
   methods: {
     addNewUserFunc(data) {

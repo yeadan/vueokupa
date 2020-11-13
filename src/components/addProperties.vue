@@ -1,6 +1,6 @@
 <template >
 <div id="properties" class="container" >
-  <div class="container row" align="left">
+  <div class="row" align="left">
     <div class="col-lg-6 col-md-12">
       <h3>Datos</h3>
       <table>
@@ -114,10 +114,6 @@
       <router-link style="margin:10px" class="btn btn-danger" to="/properties">Cancelar</router-link>
     </div>
   </div>  
-  <div class=" ">
-    <h3>Resultado</h3>
-    {{ resultado }}
-  </div>
   </div>
 
 </div>

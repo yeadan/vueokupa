@@ -1,12 +1,14 @@
 <template>
-  <div class="container row">
-    <div class="col-2"></div>
-    <div class="col-4">
-    <Login/>
+  <div class="row ">
+    <div class="col-lg-6 col-12 row" >
+      <div class="mx-5 h-100 w-100">
+    <Login class="col-6"/>
+      </div>
     </div>
-    <div class="col-1"></div>
-    <div class="col-5">
-    <Signup/>
+    <div class="col-12 col-lg-6 row" >
+      <div class="mx-5 h-100 w-100">
+    <Signup class="col-6"/>
+      </div>
     </div>
   </div>    
 </template>

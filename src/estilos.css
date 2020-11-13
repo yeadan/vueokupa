@@ -33,3 +33,11 @@ select {
     opacity: 0;
     transform: translateY(24px);
 }
+table {
+    font-size: smaller;
+  }
+tbody tr:hover {  
+    background-color: #dfedc4;  
+    color: #666666;
+    cursor: pointer;  
+  }

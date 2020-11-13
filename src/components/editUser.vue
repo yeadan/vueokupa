@@ -5,6 +5,8 @@
   <div class="card-body">
     <form >
         <div class="form-group" >
+            <label for="input-username"><strong>Username</strong></label>
+            <input type="text" disabled v-model="input.username" class="form-control" id="input-username">
             <label for="input-name"><strong>Name</strong></label>
             <input type="text" v-model="input.name" class="form-control" id="input-name" placeholder="Name">
             <label for="input-password"><strong>Password</strong></label>
@@ -16,6 +18,8 @@
                 <option>user</option>
                 <option>anonymous</option>
             </select>
+            <label for="input-created"><strong>Registered</strong></label>
+            <input type="text" disabled v-model="input.registered" class="form-control" id="input-created">
         </div>
     </form>
         <div class="col-6 mx-auto">
@@ -36,7 +40,9 @@ export default {
                     id:0,
                     password:"",
                     name: "",
-                    role:""
+                    role:"",
+                    registered:"",
+                    username:""
                 }, 
                 role: ""
             }
@@ -49,6 +55,8 @@ export default {
           this.input.id = event.params.usedUser.user_id
           this.input.name = event.params.usedUser.full_name
           this.input.role = event.params.usedUser.role
+          this.input.registered = event.params.usedUser.registered
+          this.input.username = event.params.usedUser.username
           this.input.password = ""
 
       },

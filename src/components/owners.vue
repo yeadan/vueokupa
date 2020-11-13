@@ -1,29 +1,41 @@
 <template >
 <div id="owners" class="row">
-  <div class="col-12 col-md-6 card">
-    <div class="" >
-      <div class="card-body" >
-        <div v-if="role=='admin'" class="card-title row">
-          <h5 class="col-10">Propietarios</h5>
-          <i @click="addOwner" title="Añadir" style="line-height:inherit;color:green" class="col-2 fa fa-plus"></i>
-          <AddOwner></AddOwner>
+  <div class="col-lg-6 col-md-12 col-xl-6">
+    <div style="margin:10px"  >
+      <div class="card-title row">
+          <h3 class="col-8"> Propietarios</h3>
+          <form class="col-3 ">
+            <input type="text" id="inputFiltro" placeholder="Filtrar..." class="form-control inputsm" >
+          </form>
+            <i v-if="role=='admin'" @click="addOwner" title="Añadir" style="line-height:inherit;color:green;margin:7px" class=" fa fa-plus"></i>
         </div>
-        <div v-else class="card-title">
-          <h5>Propietarios</h5>
-        </div>
+        <AddOwner></AddOwner>
         <div v-if="Object.keys(datos.owners).length > 0">
-        <ul class="list-group" v-for="(owner, index) in datos.owners" :key="index">
-          <li class=" list-group-item list-group-item-action" @click="getowner(owner.owner_id)" ><small><strong>{{owner.owner_id}} : </strong>{{ owner.name }}</small></li>
-        </ul>
+          <table id="listOwner" class="table table-striped  ">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="filter" v-for="(owner, index) in datos.owners" :key="index" @click="getowner(owner.owner_id)" >
+                <td>{{owner.owner_id}}</td>
+                <td>{{ owner.name }}</td>
+                <td>{{ owner.type_owner }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div v-else class="alert alert-danger" role="alert">
             No hay ningún propietario
         </div>
-      </div>
+
     </div>
   </div>
   <div class="col-12 col-md-6">
-    <div class="card">    
+    <div class="card h-100">    
       <div class="card-body">
         <div v-if="role=='admin' && ownersdata != ''" class="row card-title">
           <h5 class="col-9 ">Propietario</h5>
@@ -55,6 +67,7 @@ import {dataMixins} from '../mixins.js'
 import addOwner from './addOwner.vue'
 import editOwner from './editOwner.vue'
 import '../interceptor'
+import $ from 'jquery'
 import axios from 'axios'
 export default {
   data () {
@@ -73,6 +86,14 @@ export default {
     this.role = this.$store.getters.getRole
     this.user_id = this.$store.getters.getUserID
     this.load('owners')
+
+        //Para filtrar los datos, con jquery
+    $("#inputFiltro").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#listOwner .filter").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    })
   },
   methods: {
     addOwner() {

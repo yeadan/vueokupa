@@ -9,36 +9,39 @@
           </form>
           <router-link v-if="role=='admin'" to="/addproperties"><i style="line-height:inherit;color:green;margin:7px" title="Añadir" class="fa fa-plus"/></router-link> 
         </div>
-        <div v-if="(Object.keys(datos.properties).length > 0 && Object.keys(datos.owners).length > 0 && Object.keys(datos.okupas).length > 0)">
-          <table id="listProperty" class="table table-striped  ">
-            <thead>
-              <tr >
-                <th>ID</th>
-                <th>Okupa</th>
-                <th>Owner</th>
-                <th>Type</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody >
-              <tr class="filter" v-for="(okupa, index) in datos.properties" :key="index" @click="getproperty(okupa.property_id)" >
-                <td>{{okupa.property_id}}</td>
-                <td>{{datos.okupas[okupa.okupa_id].name}}</td>
-                <td>{{datos.owners[okupa.owner_id].name}} </td>
-                <td>{{ okupa.type }}</td>
-                <td>{{ okupa.description }}</td>
-              </tr>
-            </tbody>
-                          
-            </table>
+        <div v-if="loading" class="spinner-border text-dark" >
         </div>
-        <div v-else class="alert alert-danger" role="alert">
-           No hay propiedades registradas
+        <div v-else>
+          <div v-if="(Object.keys(datos.properties).length > 0 && Object.keys(datos.owners).length > 0 && Object.keys(datos.okupas).length > 0)">
+            <table id="listProperty" class="table table-striped  ">
+              <thead>
+                <tr >
+                  <th>ID</th> 
+                  <th>Okupa</th>
+                  <th>Owner</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody >
+                <tr class="filter" v-for="(okupa, index) in datos.properties" :key="index" @click="getproperty(okupa.property_id)" >
+                  <td>{{okupa.property_id}}</td>
+                  <td>{{datos.okupas[okupa.okupa_id].name}}</td>
+                  <td>{{datos.owners[okupa.owner_id].name}} </td>
+                  <td>{{ okupa.type }}</td>
+                  <td>{{ okupa.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div v-else class="alert alert-danger" role="alert">
+            No hay propiedades registradas
+          </div>
         </div>
       </div>
     </div>
   <div class="col-lg-3 col-md-6 col-xl-3">
-    <div class="card">    
+    <div class="card h-100 ">    
       <div class="card-body">
         <div v-if="role=='admin' && propertydata != ''" class="row card-title">
           <h5 class="col-9 ">Propiedad</h5>
@@ -64,7 +67,7 @@
     </div>
   </div>
   <div class="col-lg-3 col-md-6 col-xl-3">
-    <div class="card">    
+    <div class="card h-100">    
       <div class="card-body">
         <div v-if="role=='admin' && propertydata != ''" class="row card-title">
           <h5 class="col-12 ">Dirección</h5>
@@ -107,6 +110,7 @@ export default {
         owner:[]
       },
       role: '',
+      loading: false,
       propertydata: '',
       theOwner:"",
       theOkupa:""
@@ -120,6 +124,7 @@ export default {
   mounted () {
     this.role = this.$store.getters.getRole
     this.user_id = this.$store.getters.getUserID
+    this.loading = true
     this.loadProperties()
 
     //Para filtrar los datos, con jquery
@@ -171,6 +176,7 @@ export default {
               })
               Promise.all(promises2).then(()=> { 
                 this.datos.owners = this.list.owner
+                this.loading = false
               })
             })
             .catch(error => {
@@ -234,13 +240,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-table {
-  font-size: smaller;
-}
-tbody tr:hover {  
-  background-color: #dfedc4;  
-  color: #666666;
-  cursor: pointer;  
-}
-</style>
