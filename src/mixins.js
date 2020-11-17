@@ -5,6 +5,7 @@ import axios from 'axios'
 export const dataMixins = {
     data() {
         return {
+            loading: false,
             datos: {
                 okupas:[],
                 users:[],
@@ -14,24 +15,20 @@ export const dataMixins = {
         }
     },
     methods: {
-          
         load(target) {
             const url = 'http://localhost:4444/'+target
             axios.get(url)
             .then(response => {
               this.datos[target] = response.data
+              this.loading = false
               return response.data
             })
             .catch(error => {
               console.log(error)
             })
-          }
-    }
-}
-export const modalMixins = {
-    methods: {
+          },
         clickClose(target) {
-            this.$modal.hide(target)        
+            this.$modal.hide(target)  
         },
         clickOK(target,metodo,path,date) {
             if(this.input.name != "" && this.input.description != "") {
@@ -49,12 +46,15 @@ export const modalMixins = {
                     // Respuesta
                     console.log(response.data)
                     alert("Guardado")
-                  //  router.go(0)
-                    //location.reload('/')
                 }).catch(function (error) {     
                     console.log("ERROR: "+error)
                 })  
             }
-        }    
+        },
+        cleanString(target) {
+            if (typeof target != 'undefined' && Object.keys(target).length > 0)
+                return target.replace(/(\B)[^ ]*/g,match =>(match.toLowerCase())).replace(/^[^ ]/g,match=>(match.toUpperCase()))
+            else return target                
+        }
     }
 }

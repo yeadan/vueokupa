@@ -1,11 +1,11 @@
 import store from '@/store'
 import InicioComponent from './components/inicio.vue'
 import NotFound from './components/notfound.vue'
-import usuarios from './components/usuarios.vue'
-import okupas from './components/okupas.vue'
-import owners from './components/owners.vue'
-import properties from './components/properties.vue'
-import addProperties from './components/addProperties.vue'
+import usuarios from './components/user/usuarios.vue'
+import okupas from './components/okupa/okupas.vue'
+import owners from './components/owner/owners.vue'
+import properties from './components/properties/properties.vue'
+import addProperties from './components/properties/addProperties.vue'
 import Register from './components/register.vue'
 
 export const routes = [
