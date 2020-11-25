@@ -79,10 +79,9 @@ export default {
                 role:this.input.role}) }
 
                    const axios = require ('axios')
-
                     axios({
                         method: 'put',
-                        url:'http://localhost:4444/users/'+this.input.id,
+                        url:this.url2+'users/'+this.input.id,
                         data:data,
                     }).then(function (response) {
                         // Respuesta

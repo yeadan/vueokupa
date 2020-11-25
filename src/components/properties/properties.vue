@@ -136,7 +136,7 @@ export default {
       this.load("owners")
     },
     loadProperties() {
-            const url = 'http://localhost:4444/'+'properties'
+            const url = this.url2+'properties'
             axios.get(url)
             .then(response => {
             this.datos['properties'] = response.data            
@@ -151,7 +151,7 @@ export default {
       this.$modal.show('edit-property-modal', {usedProperty: this.propertydata})
     },
     getproperty(index){
-      const url = 'http://localhost:4444/properties/'+index
+      const url = this.url2+'properties/'+index
       axios.get(url)
       .then(response => {
         this.propertydata = response.data
@@ -167,7 +167,7 @@ export default {
       if (r) {
         axios({
           method: 'delete',
-          url:'http://localhost:4444/properties/'+target,
+          url:this.url2+'properties/'+target,
           }).then(function (response) {
           // Respuesta
             console.log(response)

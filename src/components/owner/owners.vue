@@ -110,7 +110,7 @@ export default {
     },
     getowner(index){
       this.activeOwner = index
-      const url = 'http://localhost:4444/owners/'+index
+      const url = this.url2+'owners/'+index
       axios.get(url)
       .then(response => {
         this.ownersdata = response.data
@@ -128,7 +128,7 @@ export default {
       if (r) {
         axios({
           method: 'delete',
-          url:'http://localhost:4444/owners/'+this.activeOwner,
+          url:this.url2+'owners/'+this.activeOwner,
           }).then(function (response) {
           // Respuesta
             console.log(response)

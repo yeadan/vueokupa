@@ -17,11 +17,17 @@ axios.interceptors.response.use((response) => {
         store.dispatch(ACTION_LOGOUT)
         router.push('/register')
     }
+    if (error.response.status == 403 ) {
+        console.log('Forbidden, logging out ...')
+        store.dispatch(ACTION_LOGOUT)
+        router.push('/register')
+    }
     return Promise.reject(error);
 })
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
+    config.headers["Content-Type"] = 'application/json'
     return config;
 }, function(error) {
     return Promise.reject(error)

@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import {dataMixins} from '@/mixins.js'
 import '../interceptor'
     export default {
         name: 'Signup',
@@ -33,6 +34,7 @@ import '../interceptor'
                 showData:""
             }
         },
+        mixins:[dataMixins],
         methods: {
             testToast(message) {
                 this.show = true;
@@ -64,7 +66,7 @@ import '../interceptor'
 
                     axios({
                         method: 'post',
-                        url:'http://localhost:4444/users',
+                        url:this.url2+'users',
                         data:data,
                     }).then(function (response) {
                         // Respuesta

@@ -285,7 +285,7 @@ export default {
       var self = this
       axios({
           method: 'post',
-          url:'http://localhost:4444/properties',
+          url:this.url2+'properties',
           data:this.resultado,
       }).then(function (response) {
           // Respuesta

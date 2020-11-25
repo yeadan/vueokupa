@@ -71,7 +71,7 @@ export default {
     if (this.role == "admin") { this.load('users') }
     this.user_id = this.$store.getters.getUserID
     let user = this.$store.getters.getUserID
-    const url = 'http://localhost:4444/users/'+user
+    const url = this.url2+'users/'+user
     axios.get(url)
     .then(response => {
       this.userdata = response.data

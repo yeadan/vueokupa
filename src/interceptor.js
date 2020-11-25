@@ -12,11 +12,17 @@ axios.interceptors.response.use((response) => {
         console.error('Error: Network Error')
         return
     }
-    if (error.response.status == 401) {
+    if (error.response.status == 401 ) {
         console.log('unauthorized, logging out ...')
         store.dispatch(ACTION_LOGOUT)
         router.push('/register')
     }
+    if (error.response.status == 403 ) {
+        console.log('Forbidden, logging out ...')
+        store.dispatch(ACTION_LOGOUT)
+        router.push('/register')
+    }
+
     return Promise.reject(error);
 })
 
@@ -27,6 +33,7 @@ axios.interceptors.request.use(function (config) {
         const authToken = 'Bearer '+token
         config.headers.Authorization =  authToken
     }
+    config.headers["Content-Type"] = 'application/json'
     return config;
 }, function(error) {
     return Promise.reject(error)

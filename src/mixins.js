@@ -5,6 +5,9 @@ import axios from 'axios'
 export const dataMixins = {
     data() {
         return {
+            url4:'https://okupa.netlify.app/',//front
+            url3:'http://localhost:4444',//local
+            url2: 'https://okupa2020.herokuapp.com/',//back
             loading: false,
             datos: {
                 okupas:[],
@@ -16,7 +19,7 @@ export const dataMixins = {
     },
     methods: {
         load(target) {
-            const url = 'http://localhost:4444/'+target
+            const url = this.url2+target
             axios.get(url)
             .then(response => {
               this.datos[target] = response.data
@@ -40,7 +43,7 @@ export const dataMixins = {
                 const axios = require ('axios')
                 axios({
                 method: metodo,
-                    url:'http://localhost:4444/'+path,
+                    url:this.url2+path,
                 data:data,
                 }).then(function (response) {
                     // Respuesta

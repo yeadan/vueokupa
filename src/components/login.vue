@@ -19,6 +19,7 @@
 
 <script>
 import { ACTION_CHANGE_ROLE, ACTION_CHANGE_TOKEN, ACTION_CHANGE_USER_ID } from '@/store/app.store'
+import {dataMixins} from '@/mixins.js'
 import '@/interceptor'
     export default {
         name: 'Login',
@@ -32,6 +33,7 @@ import '@/interceptor'
                 showData:""
             }
         },
+        mixins: [dataMixins],
         methods: {
             testToast(message) {
                 this.show = true;
@@ -44,12 +46,12 @@ import '@/interceptor'
             login2() {
                 const self = this
 
-                    let data = JSON.stringify({username:"sergio@bosch.com",
+                    let data = JSON.stringify({username:"sergio@gmail.com",
                     password:"boschvega"})
                     const axios = require ('axios')
                     axios({
                         method: 'post',
-                        url:'http://localhost:4444/users/login',
+                        url:this.url2+'users/login',
                         data:data,
                     }).then(function (response) {
                         // Almacenamos user, role y token
@@ -76,7 +78,7 @@ import '@/interceptor'
                     const axios = require ('axios')
                     axios({
                         method: 'post',
-                        url:'http://localhost:4444/users/login',
+                        url:this.url2+'users/login',
                         data:data,
                     }).then(function (response) {
                         // Almacenamos user, role y token

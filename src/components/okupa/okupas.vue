@@ -150,7 +150,7 @@ export default {
       this.$modal.show('add-okupa-modal')
     },
     getokupa(index){
-      const url = 'http://localhost:4444/okupas/'+index
+      const url = this.url2+'okupas/'+index
       axios.get(url)
       .then(response => {
         this.okupasdata = response.data
@@ -161,7 +161,7 @@ export default {
     },
     getmembers(index) {
       this.activeOkupa = index
-      const url = 'http://localhost:4444/okupas/users/'+index
+      const url = this.url2+'okupas/users/'+index
       axios.get(url)
       .then(response => {
         this.miembrosdata = response.data
@@ -173,7 +173,7 @@ export default {
     delMember(index) {
       var r = confirm("¿Estás seguro de querer borrarlo?")
       if (r && this.okupasdata != "") {
-        const url = 'http://localhost:4444/okupas/'+this.activeOkupa+'/'+index
+        const url = this.url2+'okupas/'+this.activeOkupa+'/'+index
       axios.delete(url)
       .then(response => {
         console.log("Usuario borrado | "+response.data)
@@ -194,7 +194,7 @@ export default {
       if (r) {
         axios({
           method: 'delete',
-          url:'http://localhost:4444/okupas/'+this.activeOkupa,
+          url:this.url2+'okupas/'+this.activeOkupa,
           }).then(function (response) {
           // Respuesta
             console.log(response)
@@ -214,7 +214,7 @@ export default {
         let theUser = this.user_id
         if (this.role == "admin") {
           theUser = this.adminUser }
-        const url = 'http://localhost:4444/okupas/'+this.activeOkupa+'/'+theUser    
+        const url = this.url2+'okupas/'+this.activeOkupa+'/'+theUser    
         axios.post(url)
         .then(response => {
           console.log("Usuario añadido ",response.data)
