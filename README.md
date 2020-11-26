@@ -1,5 +1,5 @@
 # okupa
-__Primera versión del front de la api creada para asociación okupa. Esta online en https://okupa.netlify.app/ __   
+_Primera versión del front de la api creada para asociación okupa. Esta online en https://propertymap.netlify.app/_   
    
 ## Dependencias utilizadas:   
    
