@@ -40,7 +40,7 @@ export default {
                 this.$emit('exit', true)
         },
         addOK() {
-            this.clickOK({name:this.input.name, description:this.input.description},'post','okupas',true)
+            this.clickOK({name:this.input.name, description:this.input.description},'post','okupas',true,'okupas')
             this.addClose(true)
         }
     }

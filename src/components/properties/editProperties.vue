@@ -59,7 +59,7 @@ export default {
         mixins:[dataMixins],
   methods: {
     editOK () {
-      this.clickOK({type:this.selectedType,description:this.input.descripcion,owner_id:this.selectedOwner,okupa_id:this.selectedOkupa},'put','properties/'+this.input.property_id,false)
+      this.clickOK({type:this.selectedType,description:this.input.descripcion,owner_id:this.selectedOwner,okupa_id:this.selectedOkupa},'put','properties/'+this.input.property_id,false,'properties')
       this.editClose(true)
     },
     editClose (bool) {

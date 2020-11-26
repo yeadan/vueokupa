@@ -44,7 +44,7 @@ export default {
                 this.$emit('exit', true)
         },
         editOk() {
-            this.clickOK({name:this.input.name,type_owner:this.input.type, description:this.input.description},'put','owners/'+this.input.id,false)
+            this.clickOK({name:this.input.name,type_owner:this.input.type, description:this.input.description},'put','owners/'+this.input.id,false,'owners')
             this.editClose(true)
         },
       beforeOpen(event) {
