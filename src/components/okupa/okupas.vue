@@ -140,6 +140,7 @@ export default {
       this.loading = true
       this.okupasdata = ""
       this.miembrosdata = ""
+      this.datos.okupas = {}
       this.load("okupas")
     },
     addNewUserFunc(data) {

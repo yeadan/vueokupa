@@ -35,15 +35,15 @@
               <tbody>
                 <tr
                   class="filter"
-                  v-for="okupa in datos.properties"
-                  :key="okupa.property_id"
-                  @click="getproperty(okupa.property_id)"
+                  v-for="mydata in datos.properties"
+                  :key="mydata.property_id"
+                  @click="getproperty(mydata.property_id)"
                 >
-                  <td>{{ okupa.property_id }}</td>
-                  <td>{{ cleanString(okupa.type) }}</td>
-                  <td>{{ cleanString(okupa.poblacion) }}</td>
-                  <td>{{ cleanString(okupa.comunidad) }}</td>
-                  <td>{{ okupa.description }}</td>
+                  <td>{{ mydata.property_id }}</td>
+                  <td>{{ cleanString(mydata.type) }}</td>
+                  <td>{{ cleanString(mydata.poblacion) }}</td>
+                  <td>{{ cleanString(mydata.comunidad) }}</td>
+                  <td>{{ mydata.description }}</td>
                 </tr>
               </tbody>
             </table>
@@ -210,7 +210,7 @@ export default {
     return {
       role: "",
       propertydata: "",
-    };
+    }
   },
   mixins: [dataMixins],
   components: {
@@ -233,8 +233,8 @@ export default {
   },
   methods: {
     closeModal() {
-      this.loading = true;
       this.propertydata = "";
+      this.datos.properties = {}
       this.load("properties");
     },
     AdminEditProperty() {

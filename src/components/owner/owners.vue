@@ -103,6 +103,7 @@ export default {
     closeModal() {
       this.loading = true
       this.ownersdata = ""
+      this.datos.owners = {}
       this.load("owners")
     },
     addOwner() {

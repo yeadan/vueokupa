@@ -19,6 +19,7 @@ export const dataMixins = {
     },
     methods: {
         load(target) {
+            this.loading = true
             const url = this.url2 + target
             axios.get(url)
                 .then(response => {
