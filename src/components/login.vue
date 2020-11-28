@@ -23,7 +23,8 @@
         placeholder="Password"
       />
       <button class="btn-sm btn-secondary" type="button" v-on:click="login()">
-        Login
+        <div v-if="loading" class="spinner-border spinner-border-sm text-light"></div>
+        <div v-else>Login</div>
       </button>
       <button
         class="btn-sm btn-secondary"
@@ -56,6 +57,7 @@ import {
 } from "@/store/app.store";
 import { dataMixins } from "@/mixins.js";
 import "@/interceptor";
+
 export default {
   name: "Login",
   data() {
@@ -80,19 +82,20 @@ export default {
     },
     login(target) {
       const self = this;
-
       let data = JSON.stringify({
         username: this.input.username,
         password: this.input.password,
       });
 
-      if (target != null) data = target //para boton pruebas
+      if (target != null) data = target;
+      //para boton pruebas
       else {
         if (this.input.username == "" || this.input.password == "") {
           this.testToast("Username and password must be present");
           return;
         }
       }
+      this.loading = true;
 
       const axios = require("axios");
       axios({
@@ -101,6 +104,7 @@ export default {
         data: data,
       })
         .then(function (response) {
+          self.loading = false;
           // Almacenamos user, role y token
           self.$store.dispatch(ACTION_CHANGE_ROLE, response.data.role);
           self.$store.dispatch(ACTION_CHANGE_TOKEN, response.data.token);
@@ -111,6 +115,7 @@ export default {
           });
         })
         .catch(function (error) {
+          self.loading = false;
           if (!error.response) {
             // network error
             self.testToast("Error: Network Error");

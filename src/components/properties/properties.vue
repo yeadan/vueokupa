@@ -220,7 +220,6 @@ export default {
   mounted() {
     this.role = this.$store.getters.getRole;
     this.user_id = this.$store.getters.getUserID;
-    this.loading = true;
     this.load('properties')
 
     //Para filtrar los datos, con jquery
@@ -234,7 +233,6 @@ export default {
   methods: {
     closeModal() {
       this.propertydata = "";
-      this.datos.properties = {}
       this.load("properties");
     },
     AdminEditProperty() {
@@ -262,10 +260,8 @@ export default {
           method: "delete",
           url: this.url2 + "properties/" + target,
         })
-          .then(function (response) {
-            // Respuesta
-            console.log(response);
-            self.loadProperties();
+          .then(() => {
+            self.load("properties")
             alert("Borrado!");
           })
           .catch(function (error) {

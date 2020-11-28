@@ -73,13 +73,14 @@ export default {
       setTimeout(() => {
         this.show = false;
         this.showData = "";
-      }, 850);
+      }, 950);
     },
     signup() {
       if (
         this.input.username == "" ||
         this.input.fullname == "" ||
-        this.input.password == ""
+        this.input.password == "" ||
+        this.input.password2 == ""
       ) {
         this.testToast("Username, fullname and password must be present");
         return;
@@ -110,13 +111,11 @@ export default {
           url: this.url2 + "users",
           data: data,
         })
-          .then(function (response) {
-            // Respuesta
-            console.log(response.data);
+          .then(() => {
             alert("User registered!");
-            setTimeout(function () {
-              self.$router.push("/register");
-            }, 1500);
+          //  setTimeout(function () {
+          //    self.$router.push("/register");
+          //  }, 1500);
           })
           .catch(function (error) {
             if (!error.response) {

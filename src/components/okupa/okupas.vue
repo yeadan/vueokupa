@@ -115,10 +115,9 @@ export default {
   mounted () {
     this.role = this.$store.getters.getRole
     this.user_id = this.$store.getters.getUserID
-    this.loading = true
     this.load('okupas')   
+    
     //Para filtrar los datos, con jquery
-
     $("#inputFiltro").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $("#listOkupa .filter").filter(function() {
@@ -136,11 +135,13 @@ export default {
     }
   },*/
   methods: {
-    closeModal() {
-      this.loading = true
+    clean() { 
       this.okupasdata = ""
       this.miembrosdata = ""
       this.datos.okupas = {}
+    },
+    closeModal() {
+      this.clean()
       this.load("okupas")
     },
     addNewUserFunc(data) {
@@ -196,10 +197,9 @@ export default {
         axios({
           method: 'delete',
           url:this.url2+'okupas/'+this.activeOkupa,
-          }).then(function (response) {
-          // Respuesta
-            console.log(response)
+          }).then(() => {
             alert("Borrado!")
+            self.clean()
             self.load('okupas')
           }).catch(function (error) {     
             console.log("ERROR: "+error)

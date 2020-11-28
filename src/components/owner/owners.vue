@@ -88,7 +88,6 @@ export default {
   mounted () { 
     this.role = this.$store.getters.getRole
     this.user_id = this.$store.getters.getUserID
-    this.loading = true
     this.load('owners')
 
     //Para filtrar los datos, con jquery
@@ -101,9 +100,7 @@ export default {
   },
   methods: {
     closeModal() {
-      this.loading = true
       this.ownersdata = ""
-      this.datos.owners = {}
       this.load("owners")
     },
     addOwner() {
@@ -130,9 +127,7 @@ export default {
         axios({
           method: 'delete',
           url:this.url2+'owners/'+this.activeOwner,
-          }).then(function (response) {
-          // Respuesta
-            console.log(response)
+          }).then(() =>  {
             self.load("owners")
             alert("Borrado!")
           }).catch(function (error) {     
