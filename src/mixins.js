@@ -6,7 +6,7 @@ export const dataMixins = {
     data() {
         return {
             url4: 'https://okupa.netlify.app/',//front
-            url3: 'http://localhost:4444',//local
+            url3: 'http://localhost:4444',//local back
             url2: 'https://okupa2020.herokuapp.com/',//back
             loading: false,
             datos: {

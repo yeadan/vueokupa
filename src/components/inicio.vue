@@ -5,7 +5,7 @@
       <h3 v-else>Página de Inicio</h3>
       <br>
       <br>
-      <img src="../../public/logo_okupa.png">
+      <img src="/logo_okupa.png">
     </div>
   </div>
 </template>
