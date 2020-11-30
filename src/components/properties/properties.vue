@@ -3,7 +3,8 @@
     <div class="col-lg-6 col-md-12 col-xl-6">
       <div style="margin: 10px">
         <div class="card-title row">
-          <h3 class="col-8">Propiedades</h3>
+          <h3 style="text-align:right" class="col-7">Propiedades</h3>
+          <div class="col-1"/>
           <form class="col-3">
             <input
               type="text"
@@ -22,7 +23,7 @@
         <div v-if="loading" class="spinner-border text-dark"></div>
         <div v-else>
           <div v-if="Object.keys(datos.properties).length > 0">
-            <table id="listProperty" class="table table-striped">
+            <table id="listProperty" class="table">
               <thead>
                 <tr>
                   <th>ID</th>

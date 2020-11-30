@@ -14,13 +14,18 @@
                       height="150px"
                       :src="'' + url2 + userdata.avatar"
                       alt="avatar"
+                      @load="onImgLoad"
                     />
                     <form style="display: flex">
                       <label for="file-input">
-                        <i
+                        <i v-if="isLoaded"
                           style="position: relative; top: -150px; right: -130px"
                           class="fa fa-upload"
                         />
+                        <i v-else 
+                        style="position: relative; top: -25px; right: -75px"
+                          class="fa fa-upload"
+                          />
                       </label>
                       <input
                         @change="loadImage"
@@ -81,7 +86,8 @@
     <div v-if="role == 'admin'" class="text-center col-md-12 col-lg-6">
       <div style="margin: 10px">
         <div class="card-title row">
-          <h3 class="col-9">Editar usuarios</h3>
+                    <h3 style="text-align:right" class="col-7">Editar usuarios</h3>
+          <div class="col-1"/>
           <form class="col-3">
             <input
               type="text"
@@ -92,7 +98,7 @@
           </form>
         </div>
         <div v-if="Object.keys(datos.users).length > 0">
-          <table id="listUser" class="table table-striped">
+          <table id="listUser" class="table ">
             <thead>
               <tr>
                 <th>Username</th>
@@ -127,6 +133,7 @@ export default {
     return {
       userdata: "",
       role: "",
+      isLoaded: false
     };
   },
   mixins: [dataMixins],
@@ -134,6 +141,7 @@ export default {
     EditUser: editUser,
   },
   mounted() {
+    this.isLoaded = false
     this.role = this.$store.getters.getRole;
     if (this.role == "admin") {
       this.load("users");
@@ -158,6 +166,9 @@ export default {
       });
   },
   methods: {
+       onImgLoad () {
+      this.isLoaded = true
+    },
     editUser(data) {
       this.$modal.show("edit-user-modal", { usedUser: data });
     },

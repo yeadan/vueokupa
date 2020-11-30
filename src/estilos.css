@@ -36,6 +36,9 @@ select {
 table {
     font-size: smaller;
   }
+thead {
+    background-color:#C1C5BB;
+}
 tbody tr:hover {  
     background-color: #dfedc4;  
     color: #666666;
