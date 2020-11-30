@@ -12,7 +12,7 @@
                       style="margin: auto"
                       width="150px"
                       height="150px"
-                      :src="'' + url2 + '/' + userdata.avatar"
+                      :src="'' + url2 + userdata.avatar"
                       alt="avatar"
                     />
                     <form style="display: flex">
@@ -177,7 +177,7 @@ export default {
           return Promise.reject(error);
         }
       );
-      let url = this.url2 + "/users/image/"+this.userdata.user_id
+      let url = this.url2 + "users/image/"+this.userdata.user_id
       instance.post(url, formData, {})
         .then((response) => {
           this.userdata.avatar = response.data.data
