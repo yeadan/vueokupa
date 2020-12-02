@@ -1,5 +1,10 @@
 <template>
   <div class="wrap">
+    <ol class="carrousel indicator">
+      <li data-target="#video-slider" data-slide-to="0" class="active"></li>
+      <li data-target="#video-slider" data-slide-to="1"></li>
+      <li data-target="#video-slider" data-slide-to="2"></li>
+    </ol>
     <div class="container-slider-video">
       <div
         id="video-slider"
@@ -51,7 +56,8 @@
                     to="/register"
                     class="btn btn-info"
                     >Begin</router-link
-                  >                </div>
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -74,15 +80,7 @@
                     to="/register"
                     class="btn btn-info"
                     >Begin</router-link
-                  >                  <ol class="carrousel indicator">
-                    <li
-                      data-target="#video-slider"
-                      data-slide-to="0"
-                      class="active"
-                    ></li>
-                    <li data-target="#video-slider" data-slide-to="1"></li>
-                    <li data-target="#video-slider" data-slide-to="2"></li>
-                  </ol>
+                  >
                 </div>
               </div>
             </div>
@@ -130,6 +128,9 @@ export default {
   margin: 0;
   padding: 0;
 }
+ol {
+  position: absolute;
+}
 section {
   width: 100%;
 }
@@ -163,14 +164,15 @@ section {
 }
 .content-video {
   position: absolute;
-  left: 75%; 
-  top: 85%; 
+  left: 75%;
+  top: 85%;
   transform: translate(-50%, -50%); /* precise centering */
 }
-h3 { /* Not used => title top of video */
+h3 {
+  /* Not used => title top of video */
   color: white;
   position: absolute;
-  left: 50%; 
+  left: 50%;
   top: 150px;
   font-size: 3vw;
   transform: translate(-50%, -50%); /* precise centering */
