@@ -46,7 +46,6 @@
                   v-if="Object.keys(userdata).length > 0"
                   @click="editUser(userdata)"
                   title="Editar"
-                  style="line-height: inherit"
                   class="col-2 fas fa-edit"
                 ></i>
 

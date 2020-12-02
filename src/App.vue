@@ -1,13 +1,16 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg-dark">
     <Encabezado></Encabezado>
     <router-view></router-view>
+    <Pie></Pie>
   </div>
 </template>
 
 <script>
 
 import encabezado from './components/encabezado.vue'
+import pie from './components/pie.vue'
+
 //Añadimos bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'jquery/src/jquery.js'
@@ -16,7 +19,8 @@ import 'bootstrap/dist/js/bootstrap.js'
 export default {
   name: 'App',
   components: {
-    Encabezado: encabezado
+    Encabezado: encabezado,
+    Pie: pie
   },
   mounted() {
   

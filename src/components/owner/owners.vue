@@ -17,7 +17,7 @@
             v-if="role == 'admin'"
             @click="addOwner"
             title="Añadir"
-            style="line-height: inherit; color: green; margin: 7px"
+            style="color: green; margin: 7px"
             class="fa fa-plus"
           ></i>
         </div>
@@ -64,13 +64,11 @@
             <i
               @click="editOwner"
               title="Editar"
-              style="line-height: inherit"
               class="col-1 fas fa-edit"
             ></i>
             <i
               @click="deleteOwner"
               title="Borrar"
-              style="line-height: inherit"
               class="col-1 fas fa-trash-alt"
             ></i>
           </div>

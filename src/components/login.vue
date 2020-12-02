@@ -140,7 +140,10 @@ export default {
   padding: 20px;
   transition: all 0.2s;
 }
-
+h1 {
+font-family: 'Montserrat';
+font-weight: bold;
+}
 h6 {
   margin: 10px 0 0;
   color: #cc1100;

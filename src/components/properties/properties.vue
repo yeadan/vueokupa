@@ -15,7 +15,7 @@
           </form>
           <router-link v-if="role == 'admin'" to="/addproperties"
             ><i
-              style="line-height: inherit; color: green; margin: 7px"
+              style="color: green; margin: 7px"
               title="Añadir"
               class="fa fa-plus"
           /></router-link>
@@ -64,13 +64,11 @@
           >
             <h5 class="col-9">Propiedad</h5>
             <i
-              style="line-height: inherit"
               title="Editar"
               @click="AdminEditProperty"
               class="col-1 fas fa-edit"
             ></i>
             <i
-              style="line-height: inherit"
               title="Borrar"
               @click="deleteProperty(propertydata.property_id)"
               class="col-1 fas fa-trash-alt"

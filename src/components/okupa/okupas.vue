@@ -17,7 +17,7 @@
             v-if="role == 'admin'"
             @click="addOkupa"
             title="Añadir"
-            style="line-height: inherit; color: green; margin: 7px"
+            style="color: green; margin: 7px"
             class="fa fa-plus"
           ></i>
         </div>
@@ -62,13 +62,11 @@
             <i
               @click="editOkupa"
               title="Editar"
-              style="line-height: inherit"
               class="col-1 fas fa-edit"
             ></i>
             <i
               @click="deleteOkupa"
               title="Borrar"
-              style="line-height: inherit"
               class="col-1 fas fa-trash-alt"
             ></i>
           </div>
@@ -114,14 +112,14 @@
               v-if="role == 'admin'"
               title="Añadir miembro"
               @click="adminAddMember"
-              style="line-height: inherit; color: green"
+              style="color: green"
               class="col-1 fa fa-user-plus"
             ></i>
             <i
               v-else
               @click="addMember"
               title="Añadir Miembro"
-              style="line-height: inherit; color: green"
+              style="color: green"
               class="col-1 fa fa-user-plus"
             ></i>
             <AdminAddOkupa @addNewUser="addNewUserFunc"></AdminAddOkupa>
