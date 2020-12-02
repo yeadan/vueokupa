@@ -13,14 +13,16 @@ axios.interceptors.response.use((response) => {
         return
     }
     if (error.response.status == 401 ) {
-        console.log('unauthorized, logging out ...')
+        console.log('Unauthorized, logging out ...')
         store.dispatch(ACTION_LOGOUT)
-        router.push('/register')
+        if (self.$router.resolve(location).href != "/#app/register") 
+            router.push('/register')
     }
     if (error.response.status == 403 ) {
         console.log('Forbidden, logging out ...')
         store.dispatch(ACTION_LOGOUT)
-        router.push('/register')
+        if (self.$router.resolve(location).href != "/#app/register") 
+            router.push('/register')
     }
 
     return Promise.reject(error);

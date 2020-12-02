@@ -113,9 +113,6 @@ export default {
         })
           .then(() => {
             alert("User registered!");
-          //  setTimeout(function () {
-          //    self.$router.push("/register");
-          //  }, 1500);
           })
           .catch(function (error) {
             if (!error.response) {
