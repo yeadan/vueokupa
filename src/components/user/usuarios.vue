@@ -15,6 +15,7 @@
                       :src="'' + url2 + userdata.avatar"
                       alt="avatar"
                       @load="onImgLoad"
+                      @error="$event.target.src='' + url2 + 'avatar_sample.jpg'"
                     />
                     <form style="display: flex">
                       <label for="file-input">
@@ -194,7 +195,8 @@ export default {
           this.userdata.avatar = response.data.data
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
+
         });
     },
   },

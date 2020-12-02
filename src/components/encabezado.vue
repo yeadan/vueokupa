@@ -5,7 +5,7 @@
         <div class="navbar-header">
           <router-link class="navbar-brand" to="/">PropertyMap</router-link>
         </div>
-        <ul class="nav navbar-nav">
+        <ul v-if="this.$store.getters.getToken != ''" class="nav navbar-nav">
           <li><router-link class="active" to="/">Inicio</router-link></li>
           <li><router-link to="/okupas">Associations</router-link></li>
           <li><router-link to="/owners">Owners</router-link></li>
