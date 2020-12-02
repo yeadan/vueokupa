@@ -14,3 +14,5 @@ __Primera versión del front de la api creada para asociación okupa.__
 #### Donaciones    
     
 <a href="https://www.buymeacoffee.com/yeadan" target="_blank"><img src="https://github.com/yeadan/blockenergy/blob/master/public/default-orange.png" alt="Buy Me A Coffee" style="height: 26px !important;width: 109px !important;" ></a>   
+   
+   BTC: 32kZW9Z381DDPn54Sho8U5jQ53UhLC8rTv
