@@ -1,7 +1,7 @@
 <template >
   <div id="properties" class="container">
     <div class="row" align="left">
-      <div class="col-lg-6 col-md-12">
+      <div class="col-lg-5 col-md-12">
         <table>
           <caption style="caption-side: top">
             <h3>Datos</h3>
@@ -101,7 +101,7 @@
           </tr>
         </table>
       </div>
-      <div id="div_address" class="col-lg-6 col-md-12" style="width: 100%">
+      <div id="div_address" class="col-lg-7 col-md-12" style="width: 100%">
         <table>
           <caption style="caption-side: top">
             <h3>Dirección</h3>
