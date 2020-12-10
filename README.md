@@ -1,5 +1,5 @@
 # okupa
-__Primera versión del front de la api creada para asociación okupa.__   
+__Front de la api creada para asociación okupa.__   
    
 ## Dependencias utilizadas:   
    

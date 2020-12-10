@@ -8,7 +8,7 @@
           </caption>
           <tr>
             <td>
-              <label class="" for="select_propietario">Propietario </label>
+              <label for="select_propietario">Propietario </label>
             </td>
             <td>
               <select id="select_propietario" v-model="resultado.owner_id">
@@ -66,34 +66,42 @@
               ></textarea>
             </td>
           </tr>
+          <tr>
+            <td></td>
+            <td>
+              <div
+                style="float: right"
+                v-if="
+                  resultado.owner_id > 0 &&
+                  resultado.user_id > 0 &&
+                  resultado.okupa_id > 0 &&
+                  Object.keys(resultado.description).length > 2 &&
+                  Object.keys(resultado.type).length > 0
+                "
+              >
+                <span class="alert alert-success" role="alert">
+                  <small>OK!</small>
+                </span>
+                <button
+                  class="btn btn-sm btn-success"
+                  onclick="document.getElementById('select_com').removeAttribute('disabled');"
+                >
+                  Añadir Dirección
+                </button>
+              </div>
+              <div v-else style="float: right">
+                <span class="alert alert-danger" role="alert">
+                  <small>Faltan datos</small>
+                </span>
+                <button disabled class="btn btn-sm btn-success">
+                  Añadir Dirección
+                </button>
+              </div>
+            </td>
+          </tr>
         </table>
-        <div
-          v-if="
-            resultado.owner_id > 0 &&
-            resultado.user_id > 0 &&
-            resultado.okupa_id > 0 &&
-            Object.keys(resultado.description).length > 2 &&
-            Object.keys(resultado.type).length > 0
-          "
-        >
-          <span
-            >Añadir dirección<button
-              class="btn btn-sm btn-success"
-              onclick="document.getElementById('select_com').removeAttribute('disabled');"
-            >
-              Añadir
-            </button></span
-          >
-        </div>
-        <div v-else>
-          <span
-            >Añadir dirección<button disabled class="btn btn-sm btn-success">
-              Añadir
-            </button>
-          </span>
-        </div>
       </div>
-      <div id="div_address" class="col-lg-6 col-md-12">
+      <div id="div_address" class="col-lg-6 col-md-12" style="width: 100%">
         <table>
           <caption style="caption-side: top">
             <h3>Dirección</h3>
@@ -245,49 +253,67 @@
               </select>
             </td>
           </tr>
-        </table>
-        <div class="">
-          <label for="num">Número</label>
-          <input
-            disabled
-            style="width: 60px; text-align: center"
-            type="number"
-            id="num"
-            @change="get_number($event.target.value)"
-          />
-          <label for="piso">Piso</label>
+          <tr>
+            <td>
+              <label for="num">Número</label>
+              <input
+                disabled
+                style="width: 60px; text-align: center"
+                type="number"
+                id="num"
+                @change="get_number($event.target.value)"
+              />
 
-          <input
-            disabled
-            style="width: 60px; text-align: center"
-            type="number"
-            id="piso"
-            @change="get_floor($event.target.value)"
-          />
-          <label for="puerta">Puerta</label>
-          <input
-            maxlength="1"
-            disabled
-            style="width: 60px; text-align: center; text-transform: uppercase"
-            id="puerta"
-            @change="get_door($event.target.value)"
-          />
-        </div>
-        <div>
-          <button
-            class="btn btn-sm btn-success"
-            id="btn_add"
-            @click="comprobate()"
-          >
-            Añadir
-          </button>
-          <router-link
-            style="margin: 10px"
-            class="btn btn-sm btn-danger"
-            to="/properties"
-            >Cancelar</router-link
-          >
-        </div>
+              <label for="piso">Piso</label>
+            </td>
+            <td>
+              <input
+                disabled
+                style="width: 60px; text-align: center"
+                type="number"
+                id="piso"
+                @change="get_floor($event.target.value)"
+              />
+              <label for="puerta">Puerta</label>
+
+              <input
+                maxlength="1"
+                disabled
+                style="
+                  width: 60px;
+                  text-align: center;
+                  text-transform: uppercase;
+                "
+                id="puerta"
+                @change="get_door($event.target.value)"
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td>
+              <div style="float: right">
+                <span id="label-address" role="alert" class="alert alert-danger"
+                  ><small>Dirección incompleta</small></span
+                >
+                <button
+                  class="btn btn-sm btn-success"
+                  id="btn_add"
+                  @click="comprobate()"
+                >
+                  Añadir
+                </button>
+                <router-link
+                  style="margin: 10px; margin-left: 0px"
+                  class="btn btn-sm btn-danger"
+                  to="/properties"
+                  >Cancelar</router-link
+                >
+              </div>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
@@ -518,6 +544,10 @@ export default {
         .then((response) => {
           document.getElementById("select_cal").removeAttribute("disabled");
           self.calles = JSON.parse(JSON.stringify(response.data.data));
+          if (self.calles == "") {
+            //Para pequeños pueblos sin calles
+            self.calles = [{ CVIA: "404", NVIAC: " ", TVIA: "<ninguna>" }];
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -531,6 +561,10 @@ export default {
       this.resultado.calle = document.getElementById("select_cal").options[
         document.getElementById("select_cal").selectedIndex
       ].text;
+      document
+        .getElementById("label-address")
+        .setAttribute("class", "alert alert-success");
+      document.getElementById("label-address").innerHTML = "<small>OK!</small>";
     },
     get_number(value) {
       this.resultado.numero = parseInt(value);
@@ -546,11 +580,11 @@ export default {
         if (this.resultado[propt].length < 1 && propt != "puerta") {
           document
             .getElementById("btn_add")
-            .setAttribute("class", "btn btn-warning");
+            .setAttribute("class", "btn btn-sm btn-warning");
           setTimeout(() => {
             document
               .getElementById("btn_add")
-              .setAttribute("class", "btn btn-success");
+              .setAttribute("class", "btn btn-sm btn-success");
           }, 500);
           return;
         }
@@ -578,13 +612,15 @@ export default {
 </script>
 
 <style scoped>
+select,
+label,
+textarea,
+input,
 button {
   margin: 10px;
 }
-label {
-  margin-right: 10px;
-}
 textarea {
   resize: none;
+  padding: 10px;
 }
 </style>

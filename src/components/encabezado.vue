@@ -37,7 +37,7 @@
             >
           </li>
           <li>
-            <button
+            <button v-if="this.$store.getters.getToken != ''"
               class="btn-sm btn-light"
               type="button"
               v-on:click="logout()"
