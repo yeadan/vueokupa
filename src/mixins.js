@@ -5,6 +5,7 @@ import axios from 'axios'
 export const dataMixins = {
     data() {
         return {
+            // Pruebas con los deploys
             url4: 'https://okupa.netlify.app/',//front
             url3: 'http://localhost:4444/',//local back
             url2: 'https://okupa2020.herokuapp.com/',//back

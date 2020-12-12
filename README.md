@@ -1,5 +1,5 @@
 # okupa
-__Front de la api creada para asociación okupa.__   
+__Front de la api creada para asociación okupa. La aplicación completa está online [aquí](https://propertymap.netlify.app/)__   
    
 ## Dependencias utilizadas:   
    

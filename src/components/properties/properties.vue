@@ -3,8 +3,8 @@
     <div class="col-lg-6 col-md-12 col-xl-6">
       <div style="margin: 10px">
         <div class="card-title row">
-          <h3 style="text-align:right" class="col-7">Propiedades</h3>
-          <div class="col-1"/>
+          <h3 style="text-align: right" class="col-7">Propiedades</h3>
+          <div class="col-1" />
           <form class="col-3">
             <input
               type="text"
@@ -44,7 +44,10 @@
                   <td>{{ cleanString(mydata.type) }}</td>
                   <td>{{ cleanString(mydata.poblacion) }}</td>
                   <td>{{ cleanString(mydata.comunidad) }}</td>
-                  <td>{{ mydata.description }}</td>
+                  <td v-if="mydata.description.length < 25">{{ mydata.description }}</td>
+                  <td v-else>
+                    {{ mydata.description.substring(0, 25) + ".." }}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -147,8 +150,9 @@
                   ><strong>Número: </strong>{{ propertydata.numero }}</small
                 >
                 <small class="ml-3"
-                  ><strong> Piso: </strong>{{ propertydata.piso
-                  }}<strong>º&nbsp; </strong
+                  ><strong> Piso: </strong>{{ propertydata.piso }}
+                  <strong v-if="propertydata.piso > 0">º&nbsp; </strong>
+                  <strong v-else>&nbsp; </strong
                   >{{ propertydata.puerta.toUpperCase() }}</small
                 >
               </p>
@@ -209,7 +213,7 @@ export default {
     return {
       role: "",
       propertydata: "",
-    }
+    };
   },
   mixins: [dataMixins],
   components: {
@@ -219,7 +223,7 @@ export default {
   mounted() {
     this.role = this.$store.getters.getRole;
     this.user_id = this.$store.getters.getUserID;
-    this.load('properties')
+    this.load("properties");
 
     //Para filtrar los datos, con jquery
     $("#inputFiltro").on("keyup", function () {
@@ -260,7 +264,7 @@ export default {
           url: this.url2 + "properties/" + target,
         })
           .then(() => {
-            self.load("properties")
+            self.load("properties");
             alert("Borrado!");
           })
           .catch(function (error) {
