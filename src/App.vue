@@ -1,17 +1,35 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="bg-dark">
+    <Encabezado></Encabezado>
+    <router-view></router-view>
+    <Pie></Pie>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import encabezado from './components/encabezado.vue'
+import pie from './components/pie.vue'
+
+//Añadimos bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'jquery/src/jquery.js'
+import 'bootstrap/dist/js/bootstrap.js'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Encabezado: encabezado,
+    Pie: pie
+  },
+  mounted() {
+  
+    //Añadiremos Font Awesome con mi clave (Sergio Bosch)
+    let myScript = document.createElement('script')
+    myScript.setAttribute('src',"https://kit.fontawesome.com/e704792412.js")
+    myScript.setAttribute('SameSite',"none Secure")
+    myScript.setAttribute('crossorigin',"anonymous")
+    document.head.appendChild(myScript)
   }
 }
 </script>
