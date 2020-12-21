@@ -22,12 +22,12 @@
         v-model="input.password"
         placeholder="Password"
       />
-      <button class="btn-sm btn-secondary" type="button" v-on:click="login()">
+      <button class="btn btn-sm btn-secondary" type="button" v-on:click="login()">
         <div v-if="loading" class="spinner-border spinner-border-sm text-light"></div>
         <div v-else>Login</div>
       </button>
       <button
-        class="btn-sm btn-secondary"
+        class="btn btn-sm btn-secondary"
         type="button"
         v-on:click="
           login(

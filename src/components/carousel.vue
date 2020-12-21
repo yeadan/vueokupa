@@ -19,18 +19,15 @@
             </video>
             <div class="container-fluid content-video">
               <div class="row">
-                <div class="offset-md-2 col-md-6 content">
+                <div class="offset-md-2 col-6 content">
                   <h2>Love Where You Live</h2>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Voluptas, natus! Magnam non at vero cumque debitis quidem
-                    inventore impedit velit! Incidunt dicta repellat saepe odio
-                    voluptatem iusto. Non, quisquam quia!
+                     This Is Where You Belong
                   </p>
                   <router-link
                     v-if="role == ''"
                     to="/register"
-                    class="btn btn-info"
+                    class="btn btn-sm btn-info"
                     >Begin</router-link
                   >
                 </div>
@@ -43,18 +40,15 @@
             </video>
             <div class="container-fluid content-video">
               <div class="row">
-                <div class="offset-md-2 col-md-6 content">
+                <div class="offset-md-2 col-6 content">
                   <h2>A Home Changes Everything</h2>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Voluptas, natus! Magnam non at vero cumque debitis quidem
-                    inventore impedit velit! Incidunt dicta repellat saepe odio
-                    voluptatem iusto. Non, quisquam quia!
+                    Live the Life you Deserve
                   </p>
                   <router-link
                     v-if="role == ''"
                     to="/register"
-                    class="btn btn-info"
+                    class="btn btn-sm btn-info"
                     >Begin</router-link
                   >
                 </div>
@@ -67,18 +61,15 @@
             </video>
             <div class="container-fluid content-video">
               <div class="row">
-                <div class="offset-md-2 col-md-6 content">
+                <div class="offset-md-2 col-6 content">
                   <h2>Move to What Moves You</h2>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Voluptas, natus! Magnam non at vero cumque debitis quidem
-                    inventore impedit velit! Incidunt dicta repellat saepe odio
-                    voluptatem iusto. Non, quisquam quia!
+                    Better Than Before
                   </p>
                   <router-link
                     v-if="role == ''"
                     to="/register"
-                    class="btn btn-info"
+                    class="btn btn-sm btn-info"
                     >Begin</router-link
                   >
                 </div>
@@ -180,10 +171,11 @@ h3 {
 }
 h2 {
   color: #ffffff;
-  font-size: 2.5vw;
+  font-size: 3vw;
   text-transform: uppercase;
 }
 p {
+  font-size: 2vw;
   color: white;
 }
 a {
@@ -191,7 +183,7 @@ a {
   letter-spacing: 2px;
   font-size: 1em;
 }
-.btn {
-  margin-bottom: 15px;
+.content {
+  margin-bottom: 5%;
 }
 </style>
