@@ -36,7 +36,7 @@
         v-model="input.password2"
         placeholder="Repeat Password"
       />
-      <button class="btn-sm btn-secondary" type="button" v-on:click="signup()">
+      <button class="btn btn-sm btn-secondary" type="button" v-on:click="signup()">
         Sign up
       </button>
     </form>
